@@ -1,101 +1,98 @@
-var canvas = document.getElementById("packed-circles");
-var context = canvas.getContext("2d");
+// var canvas = document.getElementById("bejeweled");
+// var context = canvas.getContext("2d");
+// var wsize = 400;
 
-var board = [];
+var n_gem = 5;
+var board_h = 5;
+var board_w = 5;
+var board;
 
-var wsize = 400;
-var draw_interval;
+function log_board() {
+    for(var i = 0; i < board.length; i++)
+        console.log(i.toString() + " - " + board[i].toString());
+}
 
-function draw_circle(x, y, radius, debug=false) {
-    /* Draws a circle at (x,y) with radius=adius */
+function check_sequence(gems) {
+    var idx = 0;
 
-    context.beginPath();
-    context.lineWidth = 1;
-    context.arc(x, y, radius, 0, 2 * Math.PI);
+    while(idx < gems.length) {
+        var count = 1;
+        while(count < gems.length && gems[idx] == gems[idx + count]){
+            count++;
+        }
 
-    if(debug) {
-        context.fillStyle = "red";
-        context.fill();
+        if(count > 2)
+            return {idx, count};
+
+        idx += count;
     }
 
-    context.stroke();
+    return null;
 }
 
-function rand_point(xmax, ymax) {
-    /* Generates random coodinates in R2 */
+function check() {
+    var checked = null;
 
-    return [ Math.random() * xmax,
-             Math.random() * ymax ];
-}
-
-function rand_radius(x, y, xmax, ymax, rmin, rmax) {
-    /* Generates random rmin <= radius <= rmax */
-
-    var closest_boundary = Math.min(xmax - x, ymax - y, x, y);
-    rmax = Math.min(closest_boundary, rmax);
-
-    return Math.floor(Math.random() * (rmax - rmin + 1)) + rmin;
-}
-
-function dist_point_circle(point, circle) {
-    /* Calculates distance from point to circle */
-
-    var x_diff = (point[0] - circle[0]);
-    var y_diff = (point[1] - circle[1]);
-
-    return Math.sqrt(x_diff * x_diff + y_diff * y_diff) - circle[2];
-}
-
-function dist_list(p, l) {
-    /* Calculates distance between point p and closest circle in l */
-
-    if(l.length == 0) return 1000;
-
-    var min_dist = 1000;
-    for(var i = 0; i < l.length; i++) {
-        dist = dist_point_circle(p, l[i]);
-
-        if(dist <= 2)
-            return 0;
-
-        min_dist = Math.min(min_dist, dist);
+    // check rows
+    for(var row = 0; row < board_h; row++) {
+        checked = check_sequence(board[row]);
+        if(checked != null) {
+            return {dir: 0,
+                    ...checked};
+        }
     }
 
-    return min_dist;
-}
+    // check cols
+    for(var col = 0; col < board_w; col++) {
+        var column = [];
+        for(var i = 0; i < board_h; i++)
+            column.push(board[i][col]);
 
-function draw() {
-    /* Generates and draws random circle */
-
-    var point = rand_point(wsize, wsize);
-    var dist = dist_list(point, circles);
-
-    if(dist > 2) {
-        var x = point[0];
-        var y = point[1];
-        var r = rand_radius(x, y, wsize, wsize, 2, dist);
-
-        draw_circle(x, y, r);
-        circles.push([x, y, r]);
+        console.log(column);
+        checked = check_sequence(column);
+        if(checked != null) {
+            return {dir: 1,
+                    ...checked};
+        }
     }
+
+    return null;
 }
 
-function start() {
-    /* Starts the drawing */
 
-    draw_interval = setInterval(draw, 300);
+function gen_gems(col, count) {
+    gems = [];
+
+    for(var i = 0; i < count; i++) {
+        var rand_gem = Math.floor(Math.random() * (n_gem - 1)) + 1;
+        gems.push(rand_gem);
+    }
+
+    return gems;
 }
 
-function reset() {
-    /* Resets the drawing */
-
-    circles = [];
-    canvas.width = canvas.width;
-    clearInterval(draw_interval);
+function fall_column(col) {
+    return 0;
 }
 
-function stop() {
-    /* Stops the drawing */
+function init() {
+    board = [[0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0]];
+    // board = [[1, 2, 2, 0, 2],
+    //          [1, 2, 3, 4, 5],
+    //          [1, 2, 3, 4, 5],
+    //          [1, 2, 3, 4, 5],
+    //          [1, 2, 3, 4, 5]];
 
-    clearInterval(draw_interval);
 }
+
+function main() {
+    init();
+
+    console.log(gen_gems(1, 5));
+}
+
+main();
