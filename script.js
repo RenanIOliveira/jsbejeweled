@@ -57,7 +57,6 @@ function check() {
         for(var i = 0; i < board_h; i++)
             column.push(board[i][col]);
 
-        console.log(column);
         checked = check_sequence(column);
         if(checked != null) {
             return {dir: 1,
@@ -75,8 +74,6 @@ function check() {
  * @returns {object} array of generated gems
  */
 function gen_gems(column, count) {
-    /* Generates random gems that are different from adjacent
-     */
     var gems = [];
     var possible_gems;
 
@@ -97,8 +94,6 @@ function gen_gems(column, count) {
         for(var j = 1; j <= n_gems; j++)
             if(possible_gems[j]) gem_choices.push(j);
 
-        console.log(gem_choices);
-
         gems.push(gem_choices[Math.floor(Math.random() * gem_choices.length)]);
     }
 
@@ -109,16 +104,25 @@ function gen_gems(column, count) {
  * Makes gems fall over empty spaces (deleted gems), pushing new gems to the top
  of the column.
  * @param {number} col index of column
+ * @param {number} start start of the deleted sequence
+ * @param {number} count size of the deleted sequence
+ * @returns {object} array containing column after fall
  */
-function fall_column(col) {
+function fall_column(column, start, count) {
+    var old_column = [];
+    for(var i = 0; i < board_h; i++)
+        old_column.push(board[i][column]);
+
+    return gen_gems(column, count).concat(old_column.slice(0, start),
+                                          old_column.slice(start+count, board_h));
 }
 
 function init() {
     board = [[0, 1, 0, 0, 0],
-             [0, 1, 0, 0, 0],
              [0, 2, 0, 0, 0],
              [0, 3, 0, 0, 0],
-             [0, 4, 0, 0, 0]];
+             [0, 4, 0, 0, 0],
+             [0, 5, 0, 0, 0]];
     // board = [[1, 2, 2, 0, 2],
     //          [1, 2, 3, 4, 5],
     //          [1, 2, 3, 4, 5],
@@ -130,7 +134,7 @@ function init() {
 function main() {
     init();
 
-    console.log(gen_gems(0, 5));
+    console.log(fall_column(1, 2, 1));
 }
 
 main();
