@@ -1,5 +1,5 @@
 // var canvas = document.getElementById("bejeweled");
-var n_gem = 5;
+var n_gems = 5;
 var board_h = 5;
 var board_w = 5;
 var board;
@@ -66,15 +66,32 @@ function check() {
     return null;
 }
 
-
-function gen_gems(col, count) {
-    /* Generates *count* random gems for column *col*
+function gen_gems(column, count) {
+    /* Generates random gems that are different from adjacent
      */
-    gems = [];
+    var gems = [];
+    var possible_gems;
 
     for(var i = 0; i < count; i++) {
-        var rand_gem = Math.floor(Math.random() * (n_gem - 1)) + 1;
-        gems.push(rand_gem);
+        possible_gems = [0, 1, 1, 1, 1, 1];
+
+        if(column > 0)
+            possible_gems[board[i][column - 1]] = 0;
+
+        if(column < board_w - 1){
+            possible_gems[board[i][column + 1]] = 0;
+        }
+
+        if(gems.length > 0)
+            possible_gems[gems[gems.length - 1]] = 0;
+
+        var gem_choices = [];
+        for(var j = 1; j <= n_gems; j++)
+            if(possible_gems[j]) gem_choices.push(j);
+
+        console.log(gem_choices);
+
+        gems.push(gem_choices[Math.floor(Math.random() * gem_choices.length)]);
     }
 
     return gems;
@@ -85,11 +102,11 @@ function fall_column(col) {
 }
 
 function init() {
-    board = [[0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0]];
+    board = [[0, 1, 0, 0, 0],
+             [0, 1, 0, 0, 0],
+             [0, 2, 0, 0, 0],
+             [0, 3, 0, 0, 0],
+             [0, 4, 0, 0, 0]];
     // board = [[1, 2, 2, 0, 2],
     //          [1, 2, 3, 4, 5],
     //          [1, 2, 3, 4, 5],
@@ -101,7 +118,7 @@ function init() {
 function main() {
     init();
 
-    console.log(gen_gems(1, 5));
+    console.log(gen_gems(0, 5));
 }
 
 main();
