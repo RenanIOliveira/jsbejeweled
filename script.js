@@ -1,18 +1,20 @@
 // var canvas = document.getElementById("bejeweled");
-// var context = canvas.getContext("2d");
-// var wsize = 400;
-
 var n_gem = 5;
 var board_h = 5;
 var board_w = 5;
 var board;
 
 function log_board() {
+    /* print board */
     for(var i = 0; i < board.length; i++)
         console.log(i.toString() + " - " + board[i].toString());
 }
 
 function check_sequence(gems) {
+    /* Checks gems for sequence of 3+ repeating gems
+       if found: returns {start of sequence, size of sequence}
+       else: returns null
+     */
     var idx = 0;
 
     while(idx < gems.length) {
@@ -31,6 +33,11 @@ function check_sequence(gems) {
 }
 
 function check() {
+    /* Applies check_sequence() for rows and columns
+       if found: returns {direction: 0=row | 1=column,
+                          ...check_sequence()}
+       else: returns null
+    */
     var checked = null;
 
     // check rows
@@ -61,6 +68,8 @@ function check() {
 
 
 function gen_gems(col, count) {
+    /* Generates *count* random gems for column *col*
+     */
     gems = [];
 
     for(var i = 0; i < count; i++) {
