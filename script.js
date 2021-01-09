@@ -1,20 +1,22 @@
-// var canvas = document.getElementById("bejeweled");
 var n_gems = 5;
 var board_h = 5;
 var board_w = 5;
 var board;
 
+/**
+ * Prints board to console.
+ */
 function log_board() {
-    /* print board */
     for(var i = 0; i < board.length; i++)
         console.log(i.toString() + " - " + board[i].toString());
 }
 
+/**
+ * Checks gems for sequence of 3+ repeating gems.
+ * @param {object} gems array of gems
+ * @returns {{idx: number, count: number}|null} start and size of sequence
+ */
 function check_sequence(gems) {
-    /* Checks gems for sequence of 3+ repeating gems
-       if found: returns {start of sequence, size of sequence}
-       else: returns null
-     */
     var idx = 0;
 
     while(idx < gems.length) {
@@ -32,12 +34,12 @@ function check_sequence(gems) {
     return null;
 }
 
+/**
+ * Applies check_sequence() for all rows and columns of the board.
+ * @returns {{dir: number, idx: number, count: number}|null} direction (0=row | 1=column),
+ start and size of sequence
+ */
 function check() {
-    /* Applies check_sequence() for rows and columns
-       if found: returns {direction: 0=row | 1=column,
-                          ...check_sequence()}
-       else: returns null
-    */
     var checked = null;
 
     // check rows
@@ -66,6 +68,12 @@ function check() {
     return null;
 }
 
+/**
+ * Generates new random gems for a specific column.
+ * @param {number} column index of column
+ * @param {number} count number of gems to generate
+ * @returns {object} array of generated gems
+ */
 function gen_gems(column, count) {
     /* Generates random gems that are different from adjacent
      */
@@ -97,8 +105,12 @@ function gen_gems(column, count) {
     return gems;
 }
 
+/**
+ * Makes gems fall over empty spaces (deleted gems), pushing new gems to the top
+ of the column.
+ * @param {number} col index of column
+ */
 function fall_column(col) {
-    return 0;
 }
 
 function init() {
