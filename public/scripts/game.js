@@ -1,7 +1,8 @@
 import * as board from '/scripts/board.js';
 
-var n_gems = 5;
-var game_board;
+let N_gems = 5;
+let L_board = 5;
+let game_board;
 
 /**
  * Checks gems for sequence of 3+ repeating gems.
@@ -59,78 +60,15 @@ function check() {
     return null;
 }
 
-/**
- * Generates new random gems for a specific column.
- * @param {number} column index of column
- * @param {number} count number of gems to generate
- * @returns {object} array of generated gems
- */
-function gen_gems(column, count) {
-    var gems = [];
-    var possible_gems;
-
-    for(var i = 0; i < count; i++) {
-        possible_gems = [0, 1, 1, 1, 1, 1];
-
-        if(column > 0)
-            possible_gems[game_board[i][column - 1]] = 0;
-
-        if(column < game_board[0].length - 1){
-            possible_gems[game_board[i][column + 1]] = 0;
-        }
-
-        if(gems.length > 0)
-            possible_gems[gems[gems.length - 1]] = 0;
-
-        var gem_choices = [];
-        for(var j = 1; j <= n_gems; j++)
-            if(possible_gems[j]) gem_choices.push(j);
-
-        gems.push(gem_choices[Math.floor(Math.random() * gem_choices.length)]);
-    }
-
-    return gems;
-}
-
-/**
- * Makes gems fall over empty spaces (deleted gems), pushing new gems to the top
- of the column.
- * @param {number} col index of column
- * @param {number} start start of the deleted sequence
- * @param {number} count size of the deleted sequence
- * @returns {object} array containing column after fall
- */
-function fall_column(column, start, count) {
-    var old_column = [];
-    for(var i = 0; i < game_board.length; i++)
-        old_column.push(game_board[i][column]);
-
-    return gen_gems(column, count).concat(old_column.slice(0, start),
-                                          old_column.slice(start+count,
-                                                           game_board.length));
-}
 
 function init() {
-    // 5x5
-    game_board = [[0, 1, 0, 0, 0],
-                  [0, 2, 0, 0, 0],
-                  [0, 3, 0, 0, 0],
-                  [0, 4, 0, 0, 0],
-                  [0, 5, 0, 0, 0]];
-    // game_board = [[1, 2, 2, 0, 2],
-    //          [1, 2, 3, 4, 5],
-    //          [1, 2, 3, 4, 5],
-    //          [1, 2, 3, 4, 5],
-    //          [1, 2, 3, 4, 5]];
-
+    game_board = board.random_board(L_board, N_gems);
 }
 
 function main() {
     init();
 
-    console.log(fall_column(1, 2, 1));
+    board.log_board(game_board);
 }
 
 main();
-
-board.log_board(game_board);
