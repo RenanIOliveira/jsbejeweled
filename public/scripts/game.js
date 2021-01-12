@@ -1,15 +1,7 @@
-var n_gems = 5;
-var board_h = 5;
-var board_w = 5;
-var board;
+import * as board from '/scripts/board.js';
 
-/**
- * Prints board to console.
- */
-function log_board() {
-    for(var i = 0; i < board.length; i++)
-        console.log(i.toString() + " - " + board[i].toString());
-}
+var n_gems = 5;
+var game_board;
 
 /**
  * Checks gems for sequence of 3+ repeating gems.
@@ -35,7 +27,7 @@ function check_sequence(gems) {
 }
 
 /**
- * Applies check_sequence() for all rows and columns of the board.
+ * Applies check_sequence() for all rows and columns of the game_board.
  * @returns {{dir: number, idx: number, count: number}|null} direction (0=row | 1=column),
  start and size of sequence
  */
@@ -43,8 +35,8 @@ function check() {
     var checked = null;
 
     // check rows
-    for(var row = 0; row < board_h; row++) {
-        checked = check_sequence(board[row]);
+    for(var row = 0; row < game_board.legnth; row++) {
+        checked = check_sequence(game_board[row]);
         if(checked != null) {
             return {dir: 0,
                     ...checked};
@@ -52,10 +44,10 @@ function check() {
     }
 
     // check cols
-    for(var col = 0; col < board_w; col++) {
+    for(var col = 0; col < game_board[0].length; col++) {
         var column = [];
-        for(var i = 0; i < board_h; i++)
-            column.push(board[i][col]);
+        for(var i = 0; i < game_board.length; i++)
+            column.push(game_board[i][col]);
 
         checked = check_sequence(column);
         if(checked != null) {
@@ -81,10 +73,10 @@ function gen_gems(column, count) {
         possible_gems = [0, 1, 1, 1, 1, 1];
 
         if(column > 0)
-            possible_gems[board[i][column - 1]] = 0;
+            possible_gems[game_board[i][column - 1]] = 0;
 
-        if(column < board_w - 1){
-            possible_gems[board[i][column + 1]] = 0;
+        if(column < game_board[0].length - 1){
+            possible_gems[game_board[i][column + 1]] = 0;
         }
 
         if(gems.length > 0)
@@ -110,20 +102,22 @@ function gen_gems(column, count) {
  */
 function fall_column(column, start, count) {
     var old_column = [];
-    for(var i = 0; i < board_h; i++)
-        old_column.push(board[i][column]);
+    for(var i = 0; i < game_board.length; i++)
+        old_column.push(game_board[i][column]);
 
     return gen_gems(column, count).concat(old_column.slice(0, start),
-                                          old_column.slice(start+count, board_h));
+                                          old_column.slice(start+count,
+                                                           game_board.length));
 }
 
 function init() {
-    board = [[0, 1, 0, 0, 0],
-             [0, 2, 0, 0, 0],
-             [0, 3, 0, 0, 0],
-             [0, 4, 0, 0, 0],
-             [0, 5, 0, 0, 0]];
-    // board = [[1, 2, 2, 0, 2],
+    // 5x5
+    game_board = [[0, 1, 0, 0, 0],
+                  [0, 2, 0, 0, 0],
+                  [0, 3, 0, 0, 0],
+                  [0, 4, 0, 0, 0],
+                  [0, 5, 0, 0, 0]];
+    // game_board = [[1, 2, 2, 0, 2],
     //          [1, 2, 3, 4, 5],
     //          [1, 2, 3, 4, 5],
     //          [1, 2, 3, 4, 5],
@@ -138,3 +132,5 @@ function main() {
 }
 
 main();
+
+board.log_board(game_board);
