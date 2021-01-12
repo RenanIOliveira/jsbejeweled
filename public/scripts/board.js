@@ -34,20 +34,22 @@ function board_to_string(board){
 }
 
 /**
- * Generates a square Board with random pieces and size `L`
+ * Generates a square Board with random gems and size `L`
  * @param {number} L The size of the board
- * @param {number} N_gems The number of possible gems
+ * @param {number} N_gems  number of diferent gems in the game
  * @returns {Board} Random Board
  */
-export function random_board(L, N_gems){
+export function random_board(L, N_gem){
     let board = new Array(L);
 
     for(let i=0; i<L; i++)
-        board[i] = new Array(L).fill(0);
+        board[i] = new Array(L);
 
+    let random_gem = () => utils.random_int(1, N_gems);
 
     for(let i = 0; i < L; i++)
-        board[i] = fall_column(board, i, 0, L, N_gems);
+        for(let j = 0 ; j < L ; j++)
+            board[i][j] = random_gem();
 
     return board;
 }
@@ -61,12 +63,14 @@ export function random_board(L, N_gems){
  * @param {number} count size of the deleted sequence
  * @returns {object} array containing column after fall
  */
-function fall_column(board, column, start, count, N_gems) {
-    var old_column = [];
-    for(var i = 0; i < board.length; i++)
-        old_column.push(board[i][column]);
+// export function fall_column(board, N_gems) {
+//     var old_column = [];
+//     for(var i = 0; i < board.length; i++)
+//         old_column.push(board[i][column]);
 
-    return utils.gen_gems(column, count, board, N_gems).concat(old_column.slice(0, start),
-                                                               old_column.slice(start+count,
-                                                                                board.length));
-}
+//     let random_gem = () => utils.random_int(1, N_gems);
+
+//     return utils.gen_gems(column, count, board, N_gems).concat(old_column.slice(0, start),
+//                                                                old_column.slice(start+count,
+//                                                                                 board.length));
+// }

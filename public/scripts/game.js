@@ -60,9 +60,47 @@ function check() {
     return null;
 }
 
+/**
+ * Applies check() and removes sequence if found
+ * @returns {Object|null} board with -1 where gems were removed or null
+ start and size of sequence
+*/
+function remove_sequence() {
+    let checked = check(game_board);
+    let changed_board = game_board;
+
+    if(checked == null) return null;
+
+    if(dir == 1) {
+        for(let i = start; i < start + count; i++)
+            changed_board[i][idx] = -1;
+    } else {
+        for(let i = start; i < start + count; i++)
+            changed_board[idx][i] = -1;
+    }
+
+    return changed_board;
+}
 
 function init() {
     game_board = board.random_board(L_board, N_gems);
+}
+
+function game_loop() {
+    let playing = true;
+
+    while(playig) {
+        let removed = remove_sequence();
+        while(removed != null) {
+            game_board = removed;
+            board.log_board(game_board);
+            removed = remove_sequence();
+        }
+
+        swap_pair = get_swap_pair();
+
+        board = swap(swap_pair);
+    }
 }
 
 function main() {
