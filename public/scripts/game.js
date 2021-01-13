@@ -117,18 +117,31 @@ function fall() {
     }
 }
 
-// function game_loop() {
-//     let playing = true;
+/**
+ * Realizes a swap move
+ */
+function swap() {
+    return 0;
+}
 
-//     while(playig) {
-//         fall();
+/**
+ * Game loop
+ */
+function game_loop() {
+    let playing = true;
 
-//         swap_pair = get_move();
-//         board = swap(swap_pair);
+    board.log_board(game_board);
 
-//         fall();
-//     }
-// }
+    while(playing) {
+        fall();
+
+        swap();
+        board.log_board(game_board);
+
+        fall();
+        playing = false;
+    }
+}
 
 function init() {
     game_board = board.random_board(L_board, N_gems);
@@ -143,6 +156,7 @@ function init() {
 
 function main() {
     init();
+    game_loop();
 }
 
 main();
