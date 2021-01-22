@@ -8,7 +8,7 @@
   * @type {number[][]}
   */
 
-import * as utils from "/scripts/utils.js";
+import * as utils from "./utils.js";
 
 /**
  * Prints the given board to the console
@@ -23,12 +23,12 @@ export function log_board(board) {
  * @param {Board} board
  * @returns {string} String representation of the board
  */
-function board_to_string(board){
+export function board_to_string(board){
     if(!board) return "";
 
     let board_string = "";
     for(var i = 0; i < board.length; i++)
-        board_string += i + " - " + board[i] + "\n";
+        board_string += i + " - " + board[i].join(",") + "\n";
 
     return board_string;
 }
