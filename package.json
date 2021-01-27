@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon ./src/index.js localhost 8080",
     "test": "jest",
-    "doc": "jsdoc public/scripts -d docs"
+    "doc": "jsdoc new-public/scripts -d docs"
   },
   "author": "",
   "license": "ISC",
