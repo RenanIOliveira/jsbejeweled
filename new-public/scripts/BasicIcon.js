@@ -4,14 +4,14 @@
 class BasicIcon{
     /**
      * @constructor
-     * @param {any[]} type 
+     * @param {any[]} type
      */
     constructor(type){
         this._type = type;
     }
 
     /**
-     * @method 
+     * @method
      * @returns {any} - the icon type
      */
     get type(){
@@ -21,14 +21,14 @@ class BasicIcon{
     /**
      * @method
      * @description check if two icons are equal (same type, with type not null)
-     * @param {BasicIcon} other 
+     * @param {BasicIcon} other
      */
-    equals(other){   
+    equals(other){
         // if they are equal and not null
         if(this._type == other._type && other._type !== null)
             return true;
 
-        return false    
+        return false
     }
 
     /**
