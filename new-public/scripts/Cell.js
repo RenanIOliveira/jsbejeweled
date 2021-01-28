@@ -1,11 +1,9 @@
-
-
 class Cell{
     /**
      * @constructor
-     * @param {number} row 
-     * @param {number} col 
-     * @param {BasicIcon} icon 
+     * @param {number} row
+     * @param {number} col
+     * @param {BasicIcon} icon
      */
     constructor(row,col,icon){
         this.row = row;
@@ -18,7 +16,7 @@ class Cell{
      * @method
      * @description check if two cells have the same position
      * @param {Cell} other
-     * @returns {boolean} 
+     * @returns {boolean}
      */
     samePosition(other){
         return this.row == other.row && this.col == other.col;
@@ -28,7 +26,7 @@ class Cell{
      * @method
      * @description check if two cells are adjacent to each other
      * @param {Cell} other
-     * @returns {boolean} 
+     * @returns {boolean}
      */
     isAdjacent(other){
         let adjVertical = Math.abs(other.row - this.row) == 1 && this.col == other.col;
@@ -52,7 +50,7 @@ class Cell{
      * @method
      * @description - checks if two cells have the same position and the same icon type
      * @param {Cell} other
-     * @returns {boolean} 
+     * @returns {boolean}
      */
     equals(other){
         return this.samePosition(other) && this.icon.type == other.icon.type;
