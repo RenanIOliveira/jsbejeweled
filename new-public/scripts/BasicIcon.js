@@ -1,6 +1,3 @@
-
-
-
 class BasicIcon{
     /**
      * @constructor
@@ -28,7 +25,7 @@ class BasicIcon{
         if(this._type == other._type && other._type !== null)
             return true;
 
-        return false
+        return false;
     }
 
     /**

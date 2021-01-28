@@ -1,7 +1,5 @@
 import BasicIcon from "./BasicIcon.js";
 
-
-
 class BasicIconGenerator {
 
     /**
@@ -12,7 +10,7 @@ class BasicIconGenerator {
         this.possibleTypes = iconTypes;
     }
 
-    
+
     /**
      * @private
      * @method
@@ -39,7 +37,7 @@ class BasicIconGenerator {
      * @returns {BasicIcon[][]} - A 2d array of icons
      */
     initialize(grid){
-        return grid.map(row => row.map( el => this.generate()))
+        return grid.map(row => row.map( el => this.generate()));
     }
 }
 
