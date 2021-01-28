@@ -111,9 +111,6 @@ class GameImpl{
      * @param l col of second icon
      */
     swapIcons(i,j,k,l){
-        let temp = this.grid[i][j];
-        this.grid[i][j] = this.grid[k][l];
-        this.grid[k][l] = temp;
     }
 
     /**
