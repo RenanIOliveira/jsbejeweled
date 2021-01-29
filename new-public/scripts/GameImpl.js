@@ -96,7 +96,8 @@ class GameImpl {
      * @see swapIcons(i,j,k,l)
      */
     swapCells(cells){
-
+        swapIcons(cells[0].row, cells[0].col,
+                  cells[1].row, cells[1].col);
     }
 
     /**
@@ -108,7 +109,9 @@ class GameImpl {
      * @param l col of second icon
      */
     swapIcons(i,j,k,l){
-
+        let temp = this.grid[i][j];
+        this.grid[i][j] = this.grid[k][l];
+        this.grid[k][l] = temp;
     }
 
     /**
