@@ -189,6 +189,18 @@ class GameImpl {
             );
         }
 
+        if(DoMarkAndUpdateScore){
+            for(let i = 0; i < run_cells.length; i++){
+                if(!run_cells[i]) continue;
+
+                this._score += 1;
+                let c = run_cells[i];
+                this.grid[c.row][c.col] = null;
+
+            }
+
+        }
+
         return run_cells;
 
     }
@@ -332,4 +344,4 @@ let generator = new BasicIconGenerator([0, 1, 2, 3, 4, 5, 6, 7]);
 let game = new GameImpl(10, 10, generator);
 
 console.log(game.toString());
-console.log(game.findRuns(false));
+console.log(game.findRuns(true));
