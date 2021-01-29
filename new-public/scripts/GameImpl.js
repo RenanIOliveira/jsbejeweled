@@ -3,7 +3,7 @@ import BasicIconGenerator from "./BasicIconGenerator.js";
 import Cell from "./Cell.js";
 
 
-class GameImpl{
+class GameImpl {
     /**
      * @constructor
      * @param {number} width
@@ -15,12 +15,9 @@ class GameImpl{
 
         this._debug = false;
 
-
         // initialize a 2d array
-        this.grid = new Array(height);
-        this.grid = this.grid.map(row => new Array(width));
+        this.grid = Array.from(Array(height), () => new Array(width));
         this.grid = generator.initialize(this.grid);
-
 
         this._score = 0;
         this.generator = generator;
@@ -111,6 +108,7 @@ class GameImpl{
      * @param l col of second icon
      */
     swapIcons(i,j,k,l){
+
     }
 
     /**
@@ -204,7 +202,16 @@ class GameImpl{
      * @returns {string}
      */
     toString(){
+        let s = "";
 
+        for(let i = 0; i < this.height; i++){
+            for(let j = 0; j < this.width; j++){
+                s = s.concat(this.grid[i][j].toString());
+            }
+            s = s.concat("\n");
+        }
+
+        return s;
     }
 
     /**
@@ -218,7 +225,16 @@ class GameImpl{
      * @returns {string}
      */
     repr(){
+        let s = "";
 
+        for(let i = 0; i < this.height; i++){
+            for(let j = 0; j < this.width; j++){
+                s = s.concat("!@+*$%#.".charAt(parseInt(this.grid[i][j].toString())));
+            }
+            s = s.concat("\n");
+        }
+
+        return s;
     }
 
     /**
@@ -235,3 +251,7 @@ class GameImpl{
 }
 
 export default GameImpl;
+
+
+let generator = new BasicIconGenerator([0, 1, 2, 3, 4, 5, 6, 7]);
+let game = new GameImpl(10, 10, generator);

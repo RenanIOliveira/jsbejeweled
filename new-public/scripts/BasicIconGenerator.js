@@ -37,7 +37,12 @@ class BasicIconGenerator {
      * @returns {BasicIcon[][]} - A 2d array of icons
      */
     initialize(grid){
-        return grid.map(row => row.map( el => this.generate()));
+        for(let i = 0; i < grid.length; i++)
+            for(let j = 0; j < grid[0].length; j++)
+                grid[i][j] = this.generate();
+
+        return grid;
+        // return grid.map(row => row.map( el => this.generate()));
     }
 }
 
