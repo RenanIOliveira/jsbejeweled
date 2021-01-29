@@ -147,6 +147,33 @@ class GameImpl {
     * @returns {Cell[]} list of all cells forming runs, in the form:
      **/
     findRuns(DoMarkAndUpdateScore){
+        var checked = null;
+
+        // check rows
+        for(var row = 0; row < game_board.legnth; row++) {
+            checked = check_sequence(game_board[row]);
+            if(checked != null) {
+                return {dir: 0,
+                        idx: row,
+                        ...checked};
+            }
+        }
+
+        // check cols
+        for(var col = 0; col < game_board[0].length; col++) {
+            var column = [];
+            for(var i = 0; i < game_board.length; i++)
+                column.push(game_board[i][col]);
+
+            checked = check_sequence(column);
+            if(checked != null) {
+                return {dir: 1,
+                        idx: col,
+                        ...checked};
+            }
+        }
+
+        return null;
 
     }
 
@@ -189,9 +216,15 @@ class GameImpl {
      * @returns {Cell[]} list of new cells for icons added to the column
      */
     fillCollumn(col){
-        c = []
+        let new_cells = [];
 
-        return c;
+        for(let i = 0; i < this.height; i++){
+            let new_icon = this.generator.generate();
+            this.grid[i][col] = new_icon;
+            new_cells.push(new Cell(i, col, new_icon));
+        }
+
+        return new_cells;
     }
 
     /**
