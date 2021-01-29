@@ -28,7 +28,13 @@ class GameImpl {
      * @description Remove all runs from the grid
      */
     removeAllRuns(){
+        let run_cells = this.findRuns(true);
+        while(run_cells.length != 0){
+            for(let i = 0; i < game.width; i++)
+                this.collapseColumn(i);
 
+            run_cells = this.findRuns(true);
+        }
     }
 
 
@@ -58,7 +64,7 @@ class GameImpl {
      * @param {BasicIcon} Icon icon to be set in (row,col)
      */
     setIcon(row,col,Icon){
-        // this.grid[row][col] = Icon;
+        this.grid[row][col] = Icon;
     }
 
     /**
@@ -134,7 +140,13 @@ class GameImpl {
     * @returns {boolean} True if the selected cells were modified, False otherwise.
     **/
     select(cells){
+        if(cells.length == 2 || cells[0].isAdjacent(cells[1]) ||
+           !(cells[0].sameIcon(cells[1]))){
+            this.swapCells(cells);
+            return true;
+        }
 
+        return false;
     }
 
     /**
@@ -150,7 +162,7 @@ class GameImpl {
 
         while(start < cells.length - 2) {
             var count = 1;
-            while(start + count < cells.length &&
+            while(start + count < cells.length - 2 &&
                   cells[start].sameIcon(cells[start + count]))
                 count++;
 
@@ -205,7 +217,6 @@ class GameImpl {
         }
 
         return run_cells;
-
     }
 
     /**
@@ -239,11 +250,10 @@ class GameImpl {
         let new_col = [];
 
         for(let i = 0; i < game.height; i++){
-            if(!this.grid[i][col]){
+            if(!this.grid[i][col])
                 new_col.push(null);
-                continue;
-            }
-            non_nulls.push(new Cell(i, col, this.grid[i][col]));
+            else
+                non_nulls.push(new Cell(i, col, this.grid[i][col]));
         }
 
         for(let i = 0; i < non_nulls.length; i++)
@@ -311,7 +321,8 @@ class GameImpl {
 
         for(let i = 0; i < this.height; i++){
             for(let j = 0; j < this.width; j++){
-                s = s.concat(this.grid[i][j].toString());
+                if(!this.grid[i][j]) s = s.concat("-1");
+                else s = s.concat(this.grid[i][j].toString());
             }
             s = s.concat("\n");
         }
@@ -350,6 +361,14 @@ class GameImpl {
      * @returns {string}
      */
     cellsToString(cells){
+        let s = "{\n";
+        for(let i = 0; i < cells.length; i++)
+            s = s.concat(cells[i].toString()).concat(",\n");
+        s = s.concat("}");
+        return s;
+    }
+
+    loop(){
 
     }
 
@@ -362,7 +381,5 @@ let generator = new BasicIconGenerator([0, 1, 2, 3, 4, 5, 6, 7]);
 let game = new GameImpl(10, 10, generator);
 
 console.log(game.toString());
-let cells = game.findRuns(true);
-console.log(cells);
-console.log(game.collapseColumn(0));
-
+console.log(game.removeAllRuns());
+console.log(game.toString());

@@ -22,6 +22,8 @@ class BasicIcon{
      */
     equals(other){
         // if they are equal and not null
+        if(!this._type || !other || !other._type)
+            return false;
         if(this._type == other._type && other._type !== null)
             return true;
 
@@ -34,6 +36,7 @@ class BasicIcon{
      * @returns {string}
      */
     toString(){
+        if(this._type === null) return "-1";
         return this._type.toString();
     }
 }
