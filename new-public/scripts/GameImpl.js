@@ -140,7 +140,7 @@ class GameImpl {
     * @returns {boolean} True if the selected cells were modified, False otherwise.
     **/
     select(cells){
-        if(cells.length == 2 || cells[0].isAdjacent(cells[1]) ||
+        if(cells.length == 2 && cells[0].isAdjacent(cells[1]) &&
            !(cells[0].sameIcon(cells[1]))){
             this.swapCells(cells);
             return true;
@@ -379,3 +379,5 @@ export default GameImpl;
 
 let generator = new BasicIconGenerator([0, 1, 2, 3, 4, 5, 6, 7]);
 let game = new GameImpl(10, 10, generator);
+
+game.loop();
