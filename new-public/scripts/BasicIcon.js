@@ -22,9 +22,9 @@ class BasicIcon{
      */
     equals(other){
         // if they are equal and not null
-        if(!this._type || !other || !other._type)
+        if(this._type ===null || other === null || other._type ===null)
             return false;
-        if(this._type == other._type && other._type !== null)
+        if(this._type == other._type )
             return true;
 
         return false;

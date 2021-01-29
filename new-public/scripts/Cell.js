@@ -29,7 +29,7 @@ class Cell{
      * @returns {boolean}
      */
     sameIcon(other){
-        if(!other || !this.icon) return false;
+        if(other.icon === null || this.icon === null) return false;
         return this.icon.equals(other.icon);
     }
 

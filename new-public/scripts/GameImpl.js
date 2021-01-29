@@ -102,7 +102,7 @@ class GameImpl {
      * @see swapIcons(i,j,k,l)
      */
     swapCells(cells){
-        swapIcons(cells[0].row, cells[0].col,
+        this.swapIcons(cells[0].row, cells[0].col,
                   cells[1].row, cells[1].col);
     }
 
@@ -160,14 +160,16 @@ class GameImpl {
         var start = 0;
         let run_cells = [];
 
-        while(start < cells.length - 2) {
+        var last_start = cells.length - 3
+
+        while(start < last_start) {
             var count = 1;
-            while(start + count < cells.length - 2 &&
-                  cells[start].sameIcon(cells[start + count]))
+            while(start + count < cells.length && cells[start].sameIcon(cells[start + count]))
                 count++;
 
-            if(count > 2)
+            if(count > 2){
                 run_cells = run_cells.concat(cells.slice(start, start + count));
+            }
 
             start += count;
         }
@@ -191,11 +193,13 @@ class GameImpl {
         let run_cells = [];
 
         // check rows
+       
         for(var row = 0; row < this.height; row++){
             run_cells = run_cells.concat(
                 this._findRunsInCells(this.cellsFromRow(row))
             );
         }
+
 
         // check cols
         for(var col = 0; col < this.width; col++){
@@ -368,16 +372,7 @@ class GameImpl {
         return s;
     }
 
-    loop(){
-
-    }
-
 }
 
 export default GameImpl;
 
-
-let generator = new BasicIconGenerator([0, 1, 2, 3, 4, 5, 6, 7]);
-let game = new GameImpl(10, 10, generator);
-
-game.loop();
