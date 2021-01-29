@@ -231,7 +231,21 @@ class GameImpl {
      * @returns {Cell[]} list of cells for moved icons
      */
     collapseColumn(col){
+        let non_nulls = [];
+        let new_col = [];
 
+        for(let i = 0; i < game.height; i++){
+            if(!this.grid[i][col]){
+                new_col.push(null);
+                continue;
+            }
+            non_nulls.push(new Cell(i, col, this.grid[i][col]));
+        }
+
+        for(let i = 0; i < non_nulls.length; i++)
+            non_nulls[i].row = new_col.length + i;
+
+        return new_col.concat(non_nulls);
     }
 
     /**
@@ -344,4 +358,7 @@ let generator = new BasicIconGenerator([0, 1, 2, 3, 4, 5, 6, 7]);
 let game = new GameImpl(10, 10, generator);
 
 console.log(game.toString());
-console.log(game.findRuns(true));
+let cells = game.findRuns(true);
+console.log(cells);
+console.log(game.collapseColumn(0));
+
