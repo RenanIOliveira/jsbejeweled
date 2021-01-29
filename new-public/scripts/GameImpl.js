@@ -215,7 +215,8 @@ class GameImpl {
      * @param {number} col col of the element that should be removed
      */
     removeAndShiftDown(row,col){
-
+        this.grid[row][col] = null;
+        this.collapseColumn(col);
     }
 
     /**
