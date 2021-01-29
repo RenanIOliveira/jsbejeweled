@@ -135,6 +135,32 @@ class GameImpl {
     }
 
     /**
+     * @method
+     * @description
+     * Returns a list of all cells forming the first run in given array of cells.
+     * @param {Cell[]} cells array of cells
+     * @returns {Cell[]} list of all cells forming first run
+     **/
+    _findRunsInCells(cells){
+        var start = 0;
+        let run_cells = [];
+
+        while(start < cells.length - 2) {
+            var count = 1;
+            while(start + count < cells.length &&
+                  cells[start].sameIcon(cells[start + count]))
+                count++;
+
+            if(count > 2)
+                run_cells = run_cells.concat(cells.slice(start, start + count));
+
+            start += count;
+        }
+
+        return run_cells;
+    }
+
+    /**
     * @method
     * @description
     * Returns a list of all cells forming part of a vertical or horizontal run.
@@ -147,33 +173,23 @@ class GameImpl {
     * @returns {Cell[]} list of all cells forming runs, in the form:
      **/
     findRuns(DoMarkAndUpdateScore){
-        var checked = null;
+        let run_cells = [];
 
         // check rows
-        for(var row = 0; row < game_board.legnth; row++) {
-            checked = check_sequence(game_board[row]);
-            if(checked != null) {
-                return {dir: 0,
-                        idx: row,
-                        ...checked};
-            }
+        for(var row = 0; row < this.height; row++){
+            run_cells = run_cells.concat(
+                this._findRunsInCells(this.cellsFromRow(row))
+            );
         }
 
         // check cols
-        for(var col = 0; col < game_board[0].length; col++) {
-            var column = [];
-            for(var i = 0; i < game_board.length; i++)
-                column.push(game_board[i][col]);
-
-            checked = check_sequence(column);
-            if(checked != null) {
-                return {dir: 1,
-                        idx: col,
-                        ...checked};
-            }
+        for(var col = 0; col < this.width; col++){
+            run_cells = run_cells.concat(
+                this._findRunsInCells(this.cellsFromCollumn(col))
+            );
         }
 
-        return null;
+        return run_cells;
 
     }
 
@@ -225,6 +241,32 @@ class GameImpl {
         }
 
         return new_cells;
+    }
+
+    /**
+     * @method
+     * @description Creates array of cells from given row.
+     * @param {number} row row of grid
+     * @returns {Cell[]} array of cells from given row
+     */
+    cellsFromRow(row){
+        let cells = [];
+        for(let i = 0; i < this.width; i++)
+            cells.push(new Cell(row, i, this.grid[row][i]));
+        return cells;
+    }
+
+    /**
+     * @method
+     * @description Creates array of cells from given collumn.
+     * @param {number} col collumns of grid
+     * @returns {Cell[]} array of cells from given collumn
+     */
+    cellsFromCollumn(col){
+        let cells = [];
+        for(let i = 0; i < this.height; i++)
+            cells.push(new Cell(i, col, this.grid[i][col]));
+        return cells;
     }
 
     /**
@@ -288,3 +330,6 @@ export default GameImpl;
 
 let generator = new BasicIconGenerator([0, 1, 2, 3, 4, 5, 6, 7]);
 let game = new GameImpl(10, 10, generator);
+
+console.log(game.toString());
+console.log(game.findRuns(false));

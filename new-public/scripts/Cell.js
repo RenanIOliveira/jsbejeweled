@@ -24,6 +24,16 @@ class Cell{
 
     /**
      * @method
+     * @description check if two cells have the same icon
+     * @param {Cell} other
+     * @returns {boolean}
+     */
+    sameIcon(other){
+        return this.icon.equals(other.icon);
+    }
+
+    /**
+     * @method
      * @description check if two cells are adjacent to each other
      * @param {Cell} other
      * @returns {boolean}
