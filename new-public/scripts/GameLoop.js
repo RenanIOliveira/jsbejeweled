@@ -7,7 +7,7 @@ import Cell from "./Cell.js";
 
 const WIDTH = 10;
 const HEIGHT = 10;
-const ICONS = [0, 1, 2, 3];
+const ICONS = [0, 1, 2];
 
 var game = null;
 
@@ -55,10 +55,6 @@ function makeMove(){
 
 }
 
-
-function fallAllColumns(){
-
-}
 
 
 function startGame(){

@@ -28,11 +28,14 @@ class GameImpl {
      * @description Remove all runs from the grid
      */
     removeAllRuns(){
+
         let run_cells = this.findRuns(true);
         while(run_cells.length != 0){
-            for(let i = 0; i < game.width; i++)
+            for(let i = 0; i < this.grid.width; i++){
+                console.log("run_cells: ",run_cells)
                 this.collapseColumn(i);
-
+            }
+            
             run_cells = this.findRuns(true);
         }
     }
@@ -143,6 +146,13 @@ class GameImpl {
         if(cells.length == 2 && cells[0].isAdjacent(cells[1]) &&
            !(cells[0].sameIcon(cells[1]))){
             this.swapCells(cells);
+            
+            //if after the swap there are no runs, swap back and return false
+           /* if(!this.findRuns()){
+                this.swapCells(cells);
+                return false;
+            }*/
+
             return true;
         }
 
