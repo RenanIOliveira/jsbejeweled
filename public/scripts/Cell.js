@@ -64,7 +64,7 @@ class Cell{
      * @returns {boolean}
      */
     equals(other){
-        return this.samePosition(other) && this.icon.type == other.icon.type;
+        return this.samePosition(other) && this.icon.type === other.icon.type;
     }
 
     /**

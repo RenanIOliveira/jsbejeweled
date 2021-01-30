@@ -28,11 +28,10 @@ class GameImpl {
      * @description Remove all runs from the grid
      */
     removeAllRuns(){
-
         let run_cells = this.findRuns(true);
         while(run_cells.length != 0){
             for(let i = 0; i < this.grid.width; i++){
-                console.log("run_cells: ",run_cells)
+                console.log("run_cells: ",run_cells);
                 this.collapseColumn(i);
             }
             
@@ -148,10 +147,10 @@ class GameImpl {
             this.swapCells(cells);
             
             //if after the swap there are no runs, swap back and return false
-           /* if(!this.findRuns()){
+            if(!this.findRuns()){
                 this.swapCells(cells);
                 return false;
-            }*/
+            }
 
             return true;
         }
@@ -171,9 +170,10 @@ class GameImpl {
         let run_cells = [];
 
         var last_start = cells.length - 3
-
-        while(start < last_start) {
+        
+        while(start <= last_start) {
             var count = 1;
+         
             while(start + count < cells.length && cells[start].sameIcon(cells[start + count]))
                 count++;
 
@@ -289,9 +289,13 @@ class GameImpl {
         let new_cells = [];
 
         for(let i = 0; i < this.height; i++){
-            let new_icon = this.generator.generate();
-            this.grid[i][col] = new_icon;
-            new_cells.push(new Cell(i, col, new_icon));
+            if(this.getIcon(i,col)==-1){
+                let new_icon = this.generator.generate();
+                
+                this.grid[i][col] = new_icon;
+                new_cells.push(new Cell(i, col, new_icon));
+
+            }
         }
 
         return new_cells;

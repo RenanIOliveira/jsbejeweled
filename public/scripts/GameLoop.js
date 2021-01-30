@@ -7,7 +7,7 @@ import Cell from "./Cell.js";
 
 const WIDTH = 10;
 const HEIGHT = 10;
-const ICONS = [0, 1, 2];
+const ICONS = [0,1,2,3,4,5];
 
 var game = null;
 
@@ -39,13 +39,14 @@ function makeMove(){
     let move = getMove();
     let cell1 = new Cell(move[0][0],move[0][1],game.getIcon(move[0][0],move[0][1]));
     let cell2 = new Cell(move[1][0],move[1][1],game.getIcon(move[1][0],move[1][1]));
-
-    console.log(cell1.repr());
-    console.log(cell2.repr());
     
     if(game.select([cell1,cell2])){
-        game.removeAllRuns();
         
+        game.removeAllRuns();
+        for(let i=0;i<WIDTH;i++){
+            game.fillCollumn(i);
+        }
+    
     }else{
         console.log("Invalid Move")
     }
