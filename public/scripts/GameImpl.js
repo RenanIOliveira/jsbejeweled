@@ -34,7 +34,7 @@ class GameImpl {
                 console.log("run_cells: ",run_cells);
                 this.collapseColumn(i);
             }
-            
+
             run_cells = this.findRuns(true);
         }
     }
@@ -145,7 +145,7 @@ class GameImpl {
         if(cells.length == 2 && cells[0].isAdjacent(cells[1]) &&
            !(cells[0].sameIcon(cells[1]))){
             this.swapCells(cells);
-            
+
             //if after the swap there are no runs, swap back and return false
             if(!this.findRuns()){
                 this.swapCells(cells);
@@ -169,11 +169,11 @@ class GameImpl {
         var start = 0;
         let run_cells = [];
 
-        var last_start = cells.length - 3
-        
+        var last_start = cells.length - 3;
+
         while(start <= last_start) {
             var count = 1;
-         
+
             while(start + count < cells.length && cells[start].sameIcon(cells[start + count]))
                 count++;
 
@@ -203,7 +203,7 @@ class GameImpl {
         let run_cells = [];
 
         // check rows
-       
+
         for(var row = 0; row < this.height; row++){
             run_cells = run_cells.concat(
                 this._findRunsInCells(this.cellsFromRow(row))
@@ -291,7 +291,7 @@ class GameImpl {
         for(let i = 0; i < this.height; i++){
             if(this.getIcon(i,col)==-1){
                 let new_icon = this.generator.generate();
-                
+
                 this.grid[i][col] = new_icon;
                 new_cells.push(new Cell(i, col, new_icon));
 
@@ -389,4 +389,3 @@ class GameImpl {
 }
 
 export default GameImpl;
-
