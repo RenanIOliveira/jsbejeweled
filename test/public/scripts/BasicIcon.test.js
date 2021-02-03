@@ -44,7 +44,7 @@ var BasicIconEqualsTestData = [
         type2:null,
         expectedToBeEqual:false,
     }
-]
+];
 
 describe.each(BasicIconEqualsTestData)
     ("BasicIcon equals should proper compare initialized icon types", ({ type1,type2,expectedToBeEqual }) => {
@@ -56,4 +56,4 @@ describe.each(BasicIconEqualsTestData)
             expect(icon1.equals(icon2)).toBe(expectedToBeEqual);
             expect(icon2.equals(icon1)).toBe(expectedToBeEqual);
         })
-    })
+    });
