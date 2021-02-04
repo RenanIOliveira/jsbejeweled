@@ -105,7 +105,7 @@ class GameImpl {
      */
     swapCells(cells){
         this.swapIcons(cells[0].row, cells[0].col,
-                  cells[1].row, cells[1].col);
+                       cells[1].row, cells[1].col);
     }
 
     /**
@@ -116,7 +116,7 @@ class GameImpl {
      * @param k row of second icon
      * @param l col of second icon
      */
-    swapIcons(i,j,k,l){
+    swapIcons(i, j, k, l){
         let temp = this.grid[i][j];
         this.grid[i][j] = this.grid[k][l];
         this.grid[k][l] = temp;
@@ -242,7 +242,7 @@ class GameImpl {
      * @param {number} row row of the element that should be removed
      * @param {number} col col of the element that should be removed
      */
-    removeAndShiftDown(row,col){
+    removeAndShiftDown(row, col){
         this.grid[row][col] = null;
         this.collapseColumn(col);
     }
