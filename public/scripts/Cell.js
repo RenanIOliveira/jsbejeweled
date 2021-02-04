@@ -66,7 +66,7 @@ class Cell{
     equals(other){
         if(this.icon === null || other.icon === null)
             return false;
-            
+
         return this.samePosition(other) && this.icon.type === other.icon.type;
     }
 
