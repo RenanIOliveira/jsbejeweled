@@ -1,6 +1,7 @@
 import GameImpl from "../../../public/scripts/GameImpl.js";
 import BasicIconGenerator from "../../../public/scripts/BasicIconGenerator";
 import BasicIcon from "../../../public/scripts/BasicIcon.js";
+import Cell from "../../../public/scripts/Cell.js";
 
 function BuildGrid(types) {
     let grid = Array.from(Array(types.length), () => new Array(types[0].length));
@@ -55,7 +56,7 @@ const findRunsTestData =
         expectedNumberOfIcons: 6
     },
     {
-        desc: "case 3: Should find run of more than 3 items",
+        desc: "case 5: Should find run of more than 3 items",
         types:
             [[1, 2, 3, 4, 5, 1, 2],
              [2, 1, 4, 3, 1, 3, 2],
@@ -64,20 +65,66 @@ const findRunsTestData =
              [2, 2, 2, 2, 2, 2, 2]],
         expectedNumberOfIcons: 7
     },
+];
 
-    ];
-
-
-describe.each(findRunsTestData)("Test findRuns Should Find the proper number of icons",
-                                ({desc,types,expectedNumberOfIcons}) => {
+describe.each(findRunsTestData)(
+    "Test findRuns Should Find the proper number of icons",
+    ({desc,types,expectedNumberOfIcons}) => {
 
     var generator = new BasicIconGenerator([1, 2, 3, 4, 5]);
 
-    test(desc,()=>{
+    test(desc, ()=>{
         let game = new GameImpl(types[0].length, types.length, generator);
 
         game.grid = BuildGrid(types);
 
         expect(game.findRuns().length).toBe(expectedNumberOfIcons);
+    });
+});
+
+const selectTestData = [
+    {
+        desc: "case 1: Should return true",
+        cells: [
+            new Cell(1, 1, new BasicIcon(1)),
+            new Cell(1, 2, new BasicIcon(3))
+        ],
+        expectedOut: true
+    },
+    {
+        desc: "case 2: Should return false (only one cell)",
+        cells: [
+            new Cell(1, 1, new BasicIcon(1)),
+        ],
+        expectedOut: false
+    },
+    {
+        desc: "case 3: Should return false (same icon)",
+        cells: [
+            new Cell(1, 1, new BasicIcon(1)),
+            new Cell(1, 2, new BasicIcon(1)),
+        ],
+        expectedOut: false
+    },
+    {
+        desc: "case 3: Should return false (same not adjacent)",
+        cells: [
+            new Cell(1, 1, new BasicIcon(1)),
+            new Cell(1, 3, new BasicIcon(2)),
+        ],
+        expectedOut: false
+    },
+];
+
+describe.each(selectTestData)(
+    "Test select",
+    ({desc,cells,expectedOut}) => {
+
+    var generator = new BasicIconGenerator([1, 2, 3, 4, 5]);
+
+    test(desc, ()=>{
+        let game = new GameImpl(10, 10, generator);
+
+        expect(game.select(cells)).toBe(expectedOut);
     });
 });
