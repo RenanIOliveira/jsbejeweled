@@ -184,6 +184,24 @@ const collapseCollumnTestData = [
             new Cell(4, 1, new BasicIcon(5)),
         ],
     },
+    {
+        desc: "case 3: should return 5 null cells",
+        icons: [
+            [1, null],
+            [2, null],
+            [3, null],
+            [4, null],
+            [5, null],
+        ],
+        col: 1,
+        expectedCells: [
+            null,
+            null,
+            null,
+            null,
+            null,
+        ],
+    },
 ];
 
 describe.each(collapseCollumnTestData)(
@@ -197,6 +215,60 @@ describe.each(collapseCollumnTestData)(
 
             let result = game.collapseColumn(col);
             expect(result).toStrictEqual(expectedCells);
+        }
+    );
+});
+
+const fillCollumnTestData = [
+    {
+        desc: "case 1: should return correct number of cells",
+        icons: [
+            [null, 1],
+            [null, 2],
+            [3, 3],
+            [4, 4],
+            [5, 5],
+        ],
+        col: 0,
+        expectedNumber: 2
+    },
+    {
+        desc: "case 2: should return correct number of cells",
+        icons: [
+            [1, null],
+            [2, null],
+            [3, null],
+            [4, null],
+            [5, 5],
+        ],
+        col: 1,
+        expectedNumber: 4
+    },
+    {
+        desc: "case 3: should return correct number of cells",
+        icons: [
+            [1, null],
+            [2, null],
+            [3, null],
+            [4, null],
+            [5, null],
+        ],
+        col: 1,
+        expectedNumber: 5
+    },
+];
+
+describe.each(fillCollumnTestData)(
+    "Test fillColumn",
+    ({desc, icons, col, expectedNumber}) => {
+        var generator = new BasicIconGenerator([1, 2, 3, 4, 5]);
+
+        test(desc, ()=>{
+            let game = new GameImpl(icons[0].length, icons.length, generator);
+            game.grid = BuildGrid(icons);
+
+            let result = game.fillCollumn(col);
+            expect(result.length).toBe(expectedNumber);
         }
     );
 });
