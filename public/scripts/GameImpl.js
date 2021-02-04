@@ -263,8 +263,8 @@ class GameImpl {
         let non_nulls = [];
         let new_col = [];
 
-        for(let i = 0; i < game.height; i++){
-            if(!this.grid[i][col])
+        for(let i = 0; i < this.height; i++){
+            if(!this.grid[i][col].type)
                 new_col.push(null);
             else
                 non_nulls.push(new Cell(i, col, this.grid[i][col]));

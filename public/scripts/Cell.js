@@ -5,11 +5,12 @@ class Cell{
      * @param {number} col
      * @param {BasicIcon} icon
      */
-    constructor(row,col,icon){
+    constructor(row, col, icon, previousRow=null){
         this.row = row;
         this.col = col;
         this.icon = icon;
         this.previousRow = row;
+        if(previousRow !== null) this.previousRow = previousRow;
     }
 
     /**
