@@ -5,8 +5,8 @@ import BasicIcon from "../../../public/scripts/BasicIcon.js";
 
 var BasicIconContructorTestData =
     [{ IconType: 3 },
-    { IconType: 2 },
-    { IconType: null }]
+     { IconType: 2 },
+     { IconType: null }];
 
 
 describe.each(BasicIconContructorTestData)
@@ -15,8 +15,8 @@ describe.each(BasicIconContructorTestData)
             let icon = new BasicIcon(IconType);
 
             expect(icon.type).toBe(IconType);
-        })
-    })
+        });
+    });
 
 var BasicIconEqualsTestData = [
     {
@@ -51,9 +51,9 @@ describe.each(BasicIconEqualsTestData)
         test("", () => {
             let icon1 = new BasicIcon(type1);
             let icon2 = new BasicIcon(type2);
-            
+
 
             expect(icon1.equals(icon2)).toBe(expectedToBeEqual);
             expect(icon2.equals(icon1)).toBe(expectedToBeEqual);
-        })
+        });
     });

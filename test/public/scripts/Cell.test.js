@@ -3,7 +3,7 @@ import Cell from "../../../public/scripts/Cell.js";
 
 import BasicIcon from "../../../public/scripts/BasicIcon.js";
 
-var CellComparisonsTestData = 
+var CellComparisonsTestData =
 [
     {
         cell1 :{
@@ -88,16 +88,16 @@ describe.each(CellComparisonsTestData)("Test Cell Comparisons",({cell1,cell2,exp
     test("test Cell.sameIcon",()=>{
         expect(Cell1.sameIcon(Cell2)).toBe(expected.sameIcon);
         expect(Cell2.sameIcon(Cell1)).toBe(expected.sameIcon);
-    })
+    });
 
     test("test Cell.equals",()=>{
         expect(Cell1.equals(Cell2)).toBe(expected.equals);
         expect(Cell2.equals(Cell1)).toBe(expected.equals);
-    })
+    });
 
 });
 
-var CellAdjacencyTestData = 
+var CellAdjacencyTestData =
 [
     {
         cell1 :{
@@ -169,10 +169,10 @@ describe.each(CellAdjacencyTestData)("Test Cell Adjacency",({cell1,cell2,expecte
     test("test Cell.isAdjacent",()=>{
         expect(Cell1.isAdjacent(Cell2)).toBe(expected.isAdjacent);
         expect(Cell2.isAdjacent(Cell1)).toBe(expected.isAdjacent);
-    })
+    });
 });
 
-var InGridTestData = 
+var InGridTestData =
 [
     {
         desc:"case 1",
@@ -257,7 +257,5 @@ describe.each(InGridTestData)("Test Cell In Grid",({cell,grid,expected,desc})=>{
 
     test("test Cell.inGrid " + desc,()=>{
         expect(Cell1.inGrid(grid.width,grid.height)).toBe(expected.inGrid);
-    })
+    });
 });
-
-

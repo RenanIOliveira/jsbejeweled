@@ -6,7 +6,7 @@ function BuildGrid(types) {
     let grid = Array.from(Array(types.length), () => new Array(types[0].length));
     for (let i = 0; i < types.length; i++) {
         for (let j = 0; j < types[0].length; j++) {
-            grid[i][j] = new BasicIcon(types[i][j])
+            grid[i][j] = new BasicIcon(types[i][j]);
 
         }
     }
@@ -80,4 +80,4 @@ describe.each(findRunsTestData)("Test findRuns Should Find the proper number of 
 
         expect(game.findRuns().length).toBe(expectedNumberOfIcons);
     });
-})
+});
