@@ -83,7 +83,7 @@ describe.each(CellComparisonsTestData)("Test Cell Comparisons",({cell1,cell2,exp
     test("test Cell.samePosition",()=>{
         expect(Cell1.samePosition(Cell2)).toBe(expected.samePosition);
         expect(Cell2.samePosition(Cell1)).toBe(expected.samePosition);
-    })
+    });
 
     test("test Cell.sameIcon",()=>{
         expect(Cell1.sameIcon(Cell2)).toBe(expected.sameIcon);
