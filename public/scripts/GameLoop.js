@@ -10,6 +10,14 @@ const ICONS = [0,1,2,3,4,5];
 
 var game = null;
 
+function printLog(log) {
+    document.getElementById("logs").textContent = log;
+}
+
+function printScore(score) {
+    document.getElementById("score").textContent = score;
+}
+
 function getStartGame(width, height, generator){
 
     //get a initial game without repeating sequences
@@ -46,11 +54,11 @@ function makeMove(){
             game.fillCollumn(i);
         }
     }else{
-        console.log("Invalid Move");
+        printLog("Invalid Move");
     }
 
     console.log(game.toString());
-    console.log("Score: ",game.score);
+    printScore(game.score);
 }
 
 

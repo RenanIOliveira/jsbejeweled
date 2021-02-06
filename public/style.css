@@ -27,9 +27,41 @@ body {
     font-family: 'Source Code Pro', monospace;
 }
 
+input {
+    background-color: var(--background_light);
+    color: var(--foreground);
+    text-align: center;
+    border: none;
+}
+
+button {
+    background-color: var(--background_light);
+    color: var(--foreground);
+    text-align: center;
+    border: none;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 10px 20px 10px 20px;
+}
+
+button:focus {
+    background-color: var(--green);
+    color: var(--background);
+}
+
 .main {
     width: 70%;
     margin: 0 auto;
+}
+
+#logs {
+    background-color: var(--background_light);
+    color: var(--foreground);
+}
+
+#score {
+    background-color: var(--background_light);
+    color: var(--foreground);
 }
 
 h1 {
