@@ -15,9 +15,8 @@ function getStartGame(width, height, generator){
     //get a initial game without repeating sequences
     let game = new GameImpl(width, height, generator);
 
-    while(game.findRuns().length > 0){
+    while(game.findRuns().length > 0)
         game = new GameImpl(width, height, generator);
-    }
 
     console.log(game.toString());
 
@@ -30,7 +29,7 @@ function getMove(){
     var secondPosition = document.getElementById("second")
         .value.split(",").map(el => parseInt(el));
 
-    return [firstPosition,secondPosition];
+    return [firstPosition, secondPosition];
 }
 
 function makeMove(){
