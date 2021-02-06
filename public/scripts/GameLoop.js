@@ -6,7 +6,7 @@ import Cell from "./Cell.js";
 
 const WIDTH = 10;
 const HEIGHT = 10;
-const ICONS = [0,1,2,3,4,5];
+const ICONS = [0, 1, 2, 3, 4, 5];
 
 var game = null;
 
