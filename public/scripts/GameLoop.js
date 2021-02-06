@@ -53,7 +53,7 @@ function makeMove(){
         for(let i=0; i < WIDTH; i++){
             game.fillCollumn(i);
         }
-    }else{
+    } else {
         printLog("Invalid Move");
     }
 

@@ -73,6 +73,16 @@ class Cell{
 
     /**
      * @method
+     * @description - checks if cell has a valid number in row and col
+     * @returns {boolean}
+     */
+    isValid() {
+        if(this.row !== this.row || this.col !== this.col) return false;
+        return true;
+    }
+
+    /**
+     * @method
      * @description returns a string representing the cell in the form:<br>
      * [(row, column) icon]<br>
      * if row is the same as the previous row, or<br>
@@ -88,8 +98,6 @@ class Cell{
 
         return `[${current_position} ${icon}${previousRow}]`;
     }
-
-
 }
 
 export default Cell;

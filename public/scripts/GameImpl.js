@@ -31,7 +31,7 @@ class GameImpl {
         let run_cells = this.findRuns(true);
         while(run_cells.length != 0){
             for(let i = 0; i < this.grid.width; i++){
-                console.log("run_cells: ",run_cells);
+                console.log("run_cells: ", run_cells);
                 this.collapseColumn(i);
             }
 
@@ -142,7 +142,8 @@ class GameImpl {
     * @returns {boolean} True if the selected cells were modified, False otherwise.
     **/
     select(cells){
-        if(cells.length == 2 && cells[0].isAdjacent(cells[1]) &&
+        if(cells.length == 2 && cells[0].isValid() && cells[1].isValid() &&
+           cells[0].isAdjacent(cells[1]) &&
            !(cells[0].sameIcon(cells[1]))){
             this.swapCells(cells);
 
