@@ -39,7 +39,7 @@ function makeMove(){
     let cell2 = new Cell(move[1][0], move[1][1],
                          game.getIcon(move[1][0], move[1][1]));
 
-    if(game.select([cell1,cell2])){
+    if(game.select([cell1, cell2])){
 
         game.removeAllRuns();
         for(let i=0; i < WIDTH; i++){
