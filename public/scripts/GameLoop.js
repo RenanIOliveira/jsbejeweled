@@ -2,6 +2,7 @@ import GameImpl from "./GameImpl.js";
 import BasicIcon from "./BasicIcon.js";
 import BasicIconGenerator from "./BasicIconGenerator.js";
 import Cell from "./Cell.js";
+import Sketcher from "./Sketcher.js";
 
 
 const WIDTH = 10;
@@ -18,13 +19,13 @@ function printScore(score) {
     document.getElementById("score").textContent = score;
 }
 
-function getStartGame(width, height, generator){
+function getStartGame(width, height, generator, sketcher){
 
     //get a initial game without repeating sequences
-    let game = new GameImpl(width, height, generator);
+    let game = new GameImpl(width, height, generator, sketcher);
 
     while(game.findRuns().length > 0)
-        game = new GameImpl(width, height, generator);
+        game = new GameImpl(width, height, generator, sketcher);
 
     console.log(game.toString());
 
@@ -57,6 +58,7 @@ function makeMove(){
         printLog("Invalid Move");
     }
 
+    game.draw();
     console.log(game.toString());
     printScore(game.score);
 }
@@ -65,7 +67,9 @@ function makeMove(){
 
 function startGame(){
     let generator = new BasicIconGenerator(ICONS);
-    game = getStartGame(WIDTH, HEIGHT, generator);
+    let sketcher = new Sketcher(WIDTH, HEIGHT);
+    game = getStartGame(WIDTH, HEIGHT, generator, sketcher);
+    game.draw();
 }
 
 startGame();

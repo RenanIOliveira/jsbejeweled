@@ -1,6 +1,7 @@
 import BasicIcon from "./BasicIcon.js";
 import BasicIconGenerator from "./BasicIconGenerator.js";
 import Cell from "./Cell.js";
+import Sketcher from "./Sketcher.js";
 
 
 class GameImpl {
@@ -9,8 +10,9 @@ class GameImpl {
      * @param {number} width
      * @param {number} height
      * @param {BasicIconGenerator} generator
+     * @param {Sketcher} sketcher
      */
-    constructor(width, height, generator){
+    constructor(width, height, generator, sketcher){
         this.Base_SCORE = 10;
 
         this._debug = false;
@@ -21,6 +23,7 @@ class GameImpl {
 
         this._score = 0;
         this.generator = generator;
+        this.sketcher = sketcher;
     }
 
     /**
@@ -387,6 +390,9 @@ class GameImpl {
         return s;
     }
 
+    draw() {
+        this.sketcher.draw(this);
+    }
 }
 
 export default GameImpl;
