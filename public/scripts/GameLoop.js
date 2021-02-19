@@ -2,7 +2,7 @@ import GameImpl from "./GameImpl.js";
 import BasicIcon from "./BasicIcon.js";
 import BasicIconGenerator from "./BasicIconGenerator.js";
 import Cell from "./Cell.js";
-import Sketcher from "./Sketcher.js";
+import IO from "./IO.js";
 
 
 const WIDTH = 10;
@@ -67,7 +67,7 @@ function makeMove(){
 
 function startGame(){
     let generator = new BasicIconGenerator(ICONS);
-    let sketcher = new Sketcher(WIDTH, HEIGHT);
+    let sketcher = new IO(WIDTH, HEIGHT);
     game = getStartGame(WIDTH, HEIGHT, generator, sketcher);
     game.draw();
 }
