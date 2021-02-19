@@ -13,7 +13,6 @@ class IO {
         this.grid_w = grid_w;
         this.grid_h = grid_h;
 
-        // this.square_size =  this.canvas.width / grid_w;
         this.square_size =  this.canvas.width / grid_w;
 
         this.colors = [
