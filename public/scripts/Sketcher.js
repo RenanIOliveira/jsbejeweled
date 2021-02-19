@@ -26,6 +26,14 @@ class Sketcher {
         ];
     }
 
+    /**
+     * @method
+     * @description
+     * Draws square at (x, y) and fill with color of icon.
+     * @param {number} x
+     * @param {number} y
+     * @param {number} icon
+     */
     square(x, y, icon) {
         this.context.beginPath();
         this.context.rect(x, y, this.square_size, this.square_size);
@@ -33,15 +41,17 @@ class Sketcher {
         this.context.fill();
     }
 
-    separators(grid) {
-        console.log(grid);
-    }
-
-    draw(game) {
-        for(let i = 0; i < game.width; i++) {
-            for(let j = 0; j < game.height; j++) {
+    /**
+     * @method
+     * @description
+     * Draws game grid.
+     * @param {number[][]} grid
+     */
+    draw(grid) {
+        for(let i = 0; i < grid.length; i++) {
+            for(let j = 0; j < grid[0].length; j++) {
                 this.square(i * this.square_size, j * this.square_size,
-                            game.getIcon(i, j).type);
+                            grid[i][j]);
             }
         }
 

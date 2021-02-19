@@ -391,7 +391,7 @@ class GameImpl {
     }
 
     draw() {
-        this.sketcher.draw(this);
+        this.sketcher.draw(this.grid);
     }
 }
 
