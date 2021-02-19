@@ -67,8 +67,8 @@ function makeMove(){
 
 function startGame(){
     let generator = new BasicIconGenerator(ICONS);
-    let sketcher = new IO(WIDTH, HEIGHT);
-    game = getStartGame(WIDTH, HEIGHT, generator, sketcher);
+    let io = new IO(WIDTH, HEIGHT);
+    game = getStartGame(WIDTH, HEIGHT, generator, io);
     game.draw();
 }
 
