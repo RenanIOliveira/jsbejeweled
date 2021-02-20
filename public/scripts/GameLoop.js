@@ -33,12 +33,21 @@ function getStartGame(width, height, generator, sketcher){
 }
 
 function getMove(){
-    var firstPosition = document.getElementById("first")
-        .value.split(",").map(el => parseInt(el));
-    var secondPosition = document.getElementById("second")
-        .value.split(",").map(el => parseInt(el));
+    // var firstPosition = document.getElementById("first")
+    //     .value.split(",").map(el => parseInt(el));
+    // var secondPosition = document.getElementById("second")
+    //     .value.split(",").map(el => parseInt(el));
 
-    return [firstPosition, secondPosition];
+    let firstPosition = game.io.selected[0];
+    let secondPosition = game.io.selected[1];
+
+    if (firstPosition && secondPosition) {
+        return [[firstPosition.x, firstPosition.y],
+                [secondPosition.x, secondPosition.y]];
+    } else {
+        return [[0, 0], [0, 0]];
+    }
+
 }
 
 function makeMove(){

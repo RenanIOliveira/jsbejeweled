@@ -229,7 +229,6 @@ class GameImpl {
                 this._score += 1;
                 let c = run_cells[i];
                 this.grid[c.row][c.col] = null;
-
             }
 
         }
@@ -284,7 +283,8 @@ class GameImpl {
      * @method
      * @description
      * Fills the null locations (if any) at the top of the given column in the current game grid.
-     * The returned list contains Cells representing new icons added to this column in their new locations.
+     * The returned list contains Cells representing new icons added to this column in
+     * their new locations.
      * The list is in no particular order.
      * @param {number} col column to be filled
      * @returns {Cell[]} list of new cells for icons added to the column
@@ -329,6 +329,24 @@ class GameImpl {
         for(let i = 0; i < this.height; i++)
             cells.push(new Cell(i, col, this.grid[i][col]));
         return cells;
+    }
+
+    /**
+     * @method
+     * @description Highlights cell.
+     * @param {Cell} cell
+     */
+    highlight(cell) {
+
+    }
+
+    /**
+     * @method
+     * @description
+     * Draws board.
+     */
+    draw() {
+        this.io.draw(this.grid);
     }
 
     /**
@@ -388,10 +406,6 @@ class GameImpl {
             s = s.concat(cells[i].toString()).concat(",\n");
         s = s.concat("}");
         return s;
-    }
-
-    draw() {
-        this.io.draw(this.grid);
     }
 }
 

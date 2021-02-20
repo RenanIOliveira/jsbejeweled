@@ -28,7 +28,36 @@ class IO {
             "#005800"
         ];
 
-        this.canvas.addEventListener("click", this.getCursorPosition.bind(this), false);
+        this.selected = [];
+
+        // this.canvas.addEventListener("click", this.select.bind(this), false);
+        this.canvas.addEventListener("click", this.select.bind(this), false);
+    }
+
+    /**
+     * @method
+     * @description
+     * Transforms coordinates (x, y) on page to position in canvas.
+     * @param {number} x
+     * @param {number} y
+     * @returns {x: number, y: number}
+     */
+    posPageToCanvas(x, y) {
+        return {x: x - this.canvas.offsetLeft,
+                y: y - this.canvas.offsetTop};
+    }
+
+    /**
+     * @method
+     * @description
+     * Transforms coordinates (x, y) on canvas to position in game grid.
+     * @param {number} x
+     * @param {number} y
+     * @returns {x: number, y: number}
+     */
+    posCanvasToGrid(x, y) {
+        return {x: Math.floor(x / this.square_size),
+                y: Math.floor(y / this.square_size)};
     }
 
     /**
@@ -52,7 +81,11 @@ class IO {
 
     /**
      * @method
-     * @description
+     * @description        let canvasX = (e.pageX - this.canvas.offsetLeft);
+        let canvasY = (e.pageY - this.canvas.offsetTop);
+        let posX = Math.floor(canvasX / this.square_size);
+        let posY = Math.floor(canvasY / this.square_size);
+
      * Draws game grid.
      * @param {number[][]} grid
      */
@@ -63,8 +96,9 @@ class IO {
                             grid[i][j]);
             }
         }
-
         this.context.stroke();
+
+        // this.highlightSelected();
     }
 
     /**
@@ -77,8 +111,8 @@ class IO {
     highlightSquare(x, y) {
         this.context.beginPath();
         let border = this.square_size / 1.5;
-        this.context.rect(x + border/2,
-                          y + border/2,
+        this.context.rect(x + border / 2,
+                          y + border / 2,
                           this.square_size - border,
                           this.square_size - border);
         this.context.fillStyle = "#282a36";
@@ -88,19 +122,73 @@ class IO {
     /**
      * @method
      * @description
-     * Event listener funtion that returns position of icon clicked.
-     * @returns {x: number, y: number} position of items clicked
+     * Highligts all squares in this.selected.
      */
-    getCursorPosition(e) {
-        let canvasX = (e.pageX - this.canvas.offsetLeft);
-        let canvasY = (e.pageY - this.canvas.offsetTop);
-        let posX = Math.floor(canvasX / this.square_size);
-        let posY = Math.floor(canvasY / this.square_size);
+    highlightSelected() {
+        // console.log(this.selected);
+        for(let i = 0; i < this.selected.length; i++){
+            let {x, y} = this.selected[i];
+            this.highlightSquare(x * this.square_size,
+                                 y * this.square_size);
+        }
+    }
 
-        this.highlightSquare(posX * this.square_size,
-                             posY * this.square_size);
+    /**
+     * @method
+     * @description
+     * Adds (x, y) to this.selected. If (x, y) existis in this.selected, doesn't add.
+     * Also removes first element so as to keel this.selected.length <= 2.
+     * @param {number} x
+     * @param {number} y
+     */
+    pushSelected(x, y) {
+        for(let i = 0; i < this.selected.length; i++) {
+            if(x == this.selected[i].x && y == this.selected[i].y) {
+                this.selected.splice(i, 1);
+                return;
+            }
+        }
 
-        return {x: posX, y: posY};
+        this.selected.push({x, y});
+        if(this.selected.length > 2)
+            this.popSelected();
+    }
+
+    /**
+     * @method
+     * @description
+     * Removes and returns first element of this.selected.
+     * @returns {x: number, y: number}
+     */
+    popSelected() {
+        let {x, y} = this.selected[0];
+        this.selected.shift();
+
+        return {x, y};
+    }
+
+    selectedToString() {
+        let s = "[\n";
+        for(let i = 0; i < this.selected.length; i++) {
+            s = s.concat("( " + this.selected[i].x + ", " + this.selected[i].y + " ) ");
+            // console.log(this.selected[i]);
+        }
+
+        s = s.concat("]");
+        return s;
+    }
+
+    /**
+     * @method
+     * @description
+     * Event listener funtion that selects clicked square.
+     */
+    select(e) {
+        let {x, y} = this.posPageToCanvas(e.pageX, e.pageY);
+        ({x, y} = this.posCanvasToGrid(x, y));
+
+        this.pushSelected(x, y);
+        document.getElementById("selected").textContent = this.selectedToString();
     }
 }
 
