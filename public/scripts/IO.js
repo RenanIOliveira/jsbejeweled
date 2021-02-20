@@ -171,7 +171,6 @@ class IO {
         let s = "[\n";
         for(let i = 0; i < this.selected.length; i++) {
             s = s.concat("( " + this.selected[i].x + ", " + this.selected[i].y + " ) ");
-            // console.log(this.selected[i]);
         }
 
         s = s.concat("]");
