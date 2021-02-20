@@ -333,15 +333,6 @@ class GameImpl {
 
     /**
      * @method
-     * @description Highlights cell.
-     * @param {Cell} cell
-     */
-    highlight(cell) {
-
-    }
-
-    /**
-     * @method
      * @description
      * Draws board.
      */
