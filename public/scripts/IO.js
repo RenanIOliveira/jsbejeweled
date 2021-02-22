@@ -37,14 +37,23 @@ class IO {
     /**
      * @method
      * @description
+     * Empties out this.selected.
+     */
+    resetSelected() {
+        this.selected = [];
+    }
+
+    /**
+     * @method
+     * @description
      * Transforms coordinates (x, y) on page to position in canvas.
      * @param {number} x
      * @param {number} y
      * @returns {x: number, y: number}
      */
     posPageToCanvas(x, y) {
-        return {x: x - this.canvas.offsetLeft,
-                y: y - this.canvas.offsetTop};
+        return {x: y - this.canvas.offsetTop,
+                y: x - this.canvas.offsetLeft};
     }
 
     /**
@@ -75,7 +84,14 @@ class IO {
                           y + borderSize/2,
                           this.square_size - borderSize,
                           this.square_size - borderSize);
-        this.context.fillStyle = this.colors[icon];
+
+
+        if(!icon) {
+            this.context.fillStyle = "#FFFFFF";
+        } else {
+            this.context.fillStyle = this.colors[icon];
+        }
+
         this.context.fill();
     }
 
@@ -90,10 +106,10 @@ class IO {
      * @param {number[][]} grid
      */
     draw(grid) {
-        for(let i = 0; i < grid.length; i++) {
-            for(let j = 0; j < grid[0].length; j++) {
+        for(let j = 0; j < grid[0].length; j++) {
+            for(let i = 0; i < grid.length; i++) {
                 this.square(i * this.square_size, j * this.square_size, 10,
-                            grid[i][j]);
+                            grid[j][i]);
             }
         }
         this.context.stroke();

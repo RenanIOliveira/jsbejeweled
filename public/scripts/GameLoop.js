@@ -41,6 +41,8 @@ function getMove(){
     let firstPosition = game.io.selected[0];
     let secondPosition = game.io.selected[1];
 
+    game.io.resetSelected();
+
     if (firstPosition && secondPosition) {
         return [[firstPosition.x, firstPosition.y],
                 [secondPosition.x, secondPosition.y]];

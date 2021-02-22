@@ -34,7 +34,6 @@ class GameImpl {
         let run_cells = this.findRuns(true);
         while(run_cells.length != 0){
             for(let i = 0; i < this.grid.width; i++){
-                console.log("run_cells: ", run_cells);
                 this.collapseColumn(i);
             }
 
@@ -188,6 +187,8 @@ class GameImpl {
             start += count;
         }
 
+        // if(run_cells.length > 0)
+        //     console.log("run_cells: ", run_cells);
         return run_cells;
     }
 
@@ -228,7 +229,7 @@ class GameImpl {
 
                 this._score += 1;
                 let c = run_cells[i];
-                this.grid[c.row][c.col] = null;
+                this.grid[c.row][c.col] = new BasicIcon(null);
             }
 
         }
@@ -267,7 +268,7 @@ class GameImpl {
         let new_col = [];
 
         for(let i = 0; i < this.height; i++){
-            if(!this.grid[i][col].type)
+            if(this.grid[i][col].type == null)
                 new_col.push(null);
             else
                 non_nulls.push(new Cell(i, col, this.grid[i][col]));
