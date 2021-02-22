@@ -145,7 +145,7 @@ class GameImpl {
             this.swapCells(cells);
 
             //if after the swap there are no runs, swap back and return false
-            if(!this.findRuns()){
+            if(this.findRuns().length <= 0){
                 this.swapCells(cells);
                 return false;
             }
