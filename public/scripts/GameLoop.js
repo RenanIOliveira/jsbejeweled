@@ -5,8 +5,8 @@ import Cell from "./Cell.js";
 import IO from "./IO.js";
 
 
-const WIDTH = 10;
-const HEIGHT = 10;
+const WIDTH = 5;
+const HEIGHT = 5;
 const ICONS = [0, 1, 2, 3, 4, 5];
 
 var game = null;
@@ -61,9 +61,15 @@ function makeMove(){
 
     if(game.select([cell1, cell2])){
 
-        game.removeAllRuns();
-        for(let i=0; i < WIDTH; i++){
-            game.fillCollumn(i);
+        let removed = game.removeAllRuns();
+
+        while(removed) {
+            for(let i=0; i < WIDTH; i++)
+                game.fillCollumn(i);
+
+            console.log(game.toString());
+            game.draw();
+            removed = game.removeAllRuns();
         }
     } else {
         printLog("Invalid Move");
