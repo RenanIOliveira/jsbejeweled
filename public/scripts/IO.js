@@ -16,13 +16,13 @@ class IO {
         this.square_size =  this.canvas.width / grid_w;
 
         this.colors = [
-            "#23001a",
-            "#04ff00",
+            "#101010",
+            "#019900",
             "#0000ff",
             "#ff0000",
             "#05ffff",
             "#ff00c3",
-            "#ffe100",
+            "#fff170",
             "#0988ff",
             "#ffb4ad",
             "#005800"
@@ -93,6 +93,10 @@ class IO {
         }
 
         this.context.fill();
+    }
+
+    selectedSquare(x, y, borderSize, icon){
+
     }
 
     /**
