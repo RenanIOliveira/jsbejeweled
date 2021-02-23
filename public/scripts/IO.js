@@ -95,9 +95,6 @@ class IO {
         this.context.fill();
     }
 
-    selectedSquare(x, y, borderSize, icon){
-
-    }
 
     /**
      * @method
@@ -110,6 +107,7 @@ class IO {
      * @param {number[][]} grid
      */
     draw(grid) {
+        this.grid = grid;
         for(let j = 0; j < grid[0].length; j++) {
             for(let i = 0; i < grid.length; i++) {
                 this.square(i * this.square_size, j * this.square_size, 10,
@@ -128,15 +126,18 @@ class IO {
      * @param {number} x
      * @param {number} y
      */
-    highlightSquare(x, y) {
+    highlightSquare(x, y, icon) {
         this.context.beginPath();
-        let border = this.square_size / 1.5;
-        this.context.rect(x + border / 2,
-                          y + border / 2,
+
+        let border = 10;
+        this.context.rect(y + border / 2,
+                          x + border / 2,
                           this.square_size - border,
                           this.square_size - border);
-        this.context.fillStyle = "#282a36";
-        this.context.fill();
+
+        this.context.strokeStyle = "#ffffff";
+        this.context.lineWidth = 3;
+        this.context.stroke();
     }
 
     /**
@@ -145,7 +146,7 @@ class IO {
      * Highligts all squares in this.selected.
      */
     highlightSelected() {
-        // console.log(this.selected);
+        console.log(this.selected);
         for(let i = 0; i < this.selected.length; i++){
             let {x, y} = this.selected[i];
             this.highlightSquare(x * this.square_size,
@@ -173,6 +174,7 @@ class IO {
         if(this.selected.length > 2)
             this.popSelected();
     }
+
 
     /**
      * @method
@@ -207,6 +209,7 @@ class IO {
         ({x, y} = this.posCanvasToGrid(x, y));
 
         this.pushSelected(x, y);
+        this.highlightSelected();
         document.getElementById("selected").textContent = this.selectedToString();
     }
 }
