@@ -107,6 +107,9 @@ class IO {
      * @param {number[][]} grid
      */
     draw(grid) {
+
+        this.clearCanvas();
+        
         this.grid = grid;
         for(let j = 0; j < grid[0].length; j++) {
             for(let i = 0; i < grid.length; i++) {
@@ -116,17 +119,25 @@ class IO {
         }
         this.context.stroke();
 
-        // this.highlightSelected();
+        this.highlightSelected();
+
+    }
+
+
+    clearCanvas(){
+         //clear canvas
+       this.context.clearRect(0, 0, document.getElementById("bejeweled").width, document.getElementById("bejeweled").height);
+       
     }
 
     /**
      * @method
      * @description
-     * Highligts square at pos (x, y).
+     * Highligts squgetElementById is not definedare at pos (x, y).
      * @param {number} x
      * @param {number} y
      */
-    highlightSquare(x, y, icon) {
+    highlightSquare(x, y) {
         this.context.beginPath();
 
         let border = 10;
@@ -136,7 +147,7 @@ class IO {
                           this.square_size - border);
 
         this.context.strokeStyle = "#ffffff";
-        this.context.lineWidth = 3;
+        this.context.lineWidth = 4;
         this.context.stroke();
     }
 
@@ -146,7 +157,6 @@ class IO {
      * Highligts all squares in this.selected.
      */
     highlightSelected() {
-        console.log(this.selected);
         for(let i = 0; i < this.selected.length; i++){
             let {x, y} = this.selected[i];
             this.highlightSquare(x * this.square_size,
@@ -209,8 +219,10 @@ class IO {
         ({x, y} = this.posCanvasToGrid(x, y));
 
         this.pushSelected(x, y);
-        this.highlightSelected();
+
         document.getElementById("selected").textContent = this.selectedToString();
+
+        this.draw(this.grid);
     }
 }
 
