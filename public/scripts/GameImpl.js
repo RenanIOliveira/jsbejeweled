@@ -222,8 +222,6 @@ class GameImpl {
 
                 this._score += 1;
                 let c = run_cells[i];
-                // this.grid[c.row][c.col] = new BasicIcon(null);
-                // this.removeAndShiftDown(c.row, c.col);
             }
 
         }
@@ -268,7 +266,6 @@ class GameImpl {
             if(this.grid[i][col].type == null)
                 new_col.push(new Cell(i, col, new BasicIcon(null)));
             else
-                // non_nulls.push(new Cell(i, col, this.grid[i][col]));
                 non_nulls.push(new Cell(i, col, this.grid[i][col]));
         }
 
@@ -320,9 +317,6 @@ class GameImpl {
             removed = true;
             for(let i = 0; i < run_cells.length; i++)
                 this.removeAndShiftDown(run_cells[i].row, run_cells[i].col);
-            // for(let i = 0; i < this.grid.width; i++){
-            //     this.collapseColumn(i);
-            // }
 
             run_cells = this.findRuns(true);
         }

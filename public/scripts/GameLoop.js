@@ -37,11 +37,6 @@ function getStartGame(width, height, generator, sketcher){
 }
 
 function getMove(){
-    // var firstPosition = document.getElementById("first")
-    //     .value.split(",").map(el => parseInt(el));
-    // var secondPosition = document.getElementById("second")
-    //     .value.split(",").map(el => parseInt(el));
-
     let firstPosition = game.io.selected[0];
     let secondPosition = game.io.selected[1];
 

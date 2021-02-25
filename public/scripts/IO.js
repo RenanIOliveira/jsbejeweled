@@ -30,7 +30,6 @@ class IO {
 
         this.selected = [];
 
-        // this.canvas.addEventListener("click", this.select.bind(this), false);
         this.canvas.addEventListener("click", this.select.bind(this), false);
     }
 
@@ -125,7 +124,7 @@ class IO {
 
 
     clearCanvas(){
-         //clear canvas
+        //clear canvas
        this.context.clearRect(0, 0, document.getElementById("bejeweled").width, document.getElementById("bejeweled").height);
 
     }

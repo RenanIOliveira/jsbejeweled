@@ -42,7 +42,6 @@ class BasicIconGenerator {
                 grid[i][j] = this.generate();
 
         return grid;
-        // return grid.map(row => row.map( el => this.generate()));
     }
 }
 
