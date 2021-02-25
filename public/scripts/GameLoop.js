@@ -5,8 +5,8 @@ import Cell from "./Cell.js";
 import IO from "./IO.js";
 
 
-const WIDTH = 10;
-const HEIGHT = 10;
+const WIDTH = 3;
+const HEIGHT = 3;
 const ICONS = [0, 1, 2, 3, 4, 5];
 
 var game = null;
