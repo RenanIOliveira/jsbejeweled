@@ -2,10 +2,11 @@ import GameImpl from "./GameImpl.js";
 import BasicIcon from "./BasicIcon.js";
 import BasicIconGenerator from "./BasicIconGenerator.js";
 import Cell from "./Cell.js";
+import IO from "./IO.js";
 
 
-const WIDTH = 10;
-const HEIGHT = 10;
+const WIDTH = 5;
+const HEIGHT = 5;
 const ICONS = [0, 1, 2, 3, 4, 5];
 
 var game = null;
@@ -18,13 +19,13 @@ function printScore(score) {
     document.getElementById("score").textContent = score;
 }
 
-function getStartGame(width, height, generator){
+function getStartGame(width, height, generator, sketcher){
 
     //get a initial game without repeating sequences
-    let game = new GameImpl(width, height, generator);
+    let game = new GameImpl(width, height, generator, sketcher);
 
     while(game.findRuns().length > 0)
-        game = new GameImpl(width, height, generator);
+        game = new GameImpl(width, height, generator, sketcher);
 
     console.log(game.toString());
 
@@ -32,12 +33,23 @@ function getStartGame(width, height, generator){
 }
 
 function getMove(){
-    var firstPosition = document.getElementById("first")
-        .value.split(",").map(el => parseInt(el));
-    var secondPosition = document.getElementById("second")
-        .value.split(",").map(el => parseInt(el));
+    // var firstPosition = document.getElementById("first")
+    //     .value.split(",").map(el => parseInt(el));
+    // var secondPosition = document.getElementById("second")
+    //     .value.split(",").map(el => parseInt(el));
 
-    return [firstPosition, secondPosition];
+    let firstPosition = game.io.selected[0];
+    let secondPosition = game.io.selected[1];
+
+    game.io.resetSelected();
+
+    if (firstPosition && secondPosition) {
+        return [[firstPosition.x, firstPosition.y],
+                [secondPosition.x, secondPosition.y]];
+    } else {
+        return [[0, 0], [0, 0]];
+    }
+
 }
 
 function makeMove(){
@@ -49,14 +61,21 @@ function makeMove(){
 
     if(game.select([cell1, cell2])){
 
-        game.removeAllRuns();
-        for(let i=0; i < WIDTH; i++){
-            game.fillCollumn(i);
+        let removed = game.removeAllRuns();
+
+        while(removed) {
+            for(let i=0; i < WIDTH; i++)
+                game.fillCollumn(i);
+
+            console.log(game.toString());
+            game.draw();
+            removed = game.removeAllRuns();
         }
     } else {
         printLog("Invalid Move");
     }
 
+    game.draw();
     console.log(game.toString());
     printScore(game.score);
 }
@@ -65,7 +84,9 @@ function makeMove(){
 
 function startGame(){
     let generator = new BasicIconGenerator(ICONS);
-    game = getStartGame(WIDTH, HEIGHT, generator);
+    let io = new IO(WIDTH, HEIGHT);
+    game = getStartGame(WIDTH, HEIGHT, generator, io);
+    game.draw();
 }
 
 startGame();

@@ -141,7 +141,7 @@ const collapseCollumnTestData = [
         ],
         col: 0,
         expectedCells: [
-            null,
+            new Cell(0, 0, new BasicIcon(null), 2),
             new Cell(1, 0, new BasicIcon(1), 0),
             new Cell(2, 0, new BasicIcon(2), 1),
             new Cell(3, 0, new BasicIcon(4)),
@@ -159,8 +159,8 @@ const collapseCollumnTestData = [
         ],
         col: 1,
         expectedCells: [
-            null,
-            null,
+            new Cell(0, 1, new BasicIcon(null), 2),
+            new Cell(1, 1, new BasicIcon(null), 3),
             new Cell(2, 1, new BasicIcon(1), 0),
             new Cell(3, 1, new BasicIcon(2), 1),
             new Cell(4, 1, new BasicIcon(5)),
@@ -177,8 +177,8 @@ const collapseCollumnTestData = [
         ],
         col: 1,
         expectedCells: [
-            null,
-            null,
+            new Cell(0, 1, new BasicIcon(null), 0),
+            new Cell(1, 1, new BasicIcon(null), 3),
             new Cell(2, 1, new BasicIcon(2), 1),
             new Cell(3, 1, new BasicIcon(3), 2),
             new Cell(4, 1, new BasicIcon(5)),
@@ -195,11 +195,11 @@ const collapseCollumnTestData = [
         ],
         col: 1,
         expectedCells: [
-            null,
-            null,
-            null,
-            null,
-            null,
+            new Cell(0, 1, new BasicIcon(null)),
+            new Cell(1, 1, new BasicIcon(null)),
+            new Cell(2, 1, new BasicIcon(null)),
+            new Cell(3, 1, new BasicIcon(null)),
+            new Cell(4, 1, new BasicIcon(null)),
         ],
     },
 ];
@@ -221,7 +221,7 @@ describe.each(collapseCollumnTestData)(
 
 const fillCollumnTestData = [
     {
-        desc: "case 1: should return correct number of cells",
+        desc: "case 1: should return correct number of null cells",
         icons: [
             [null, 1],
             [null, 2],
@@ -233,7 +233,7 @@ const fillCollumnTestData = [
         expectedNumber: 2
     },
     {
-        desc: "case 2: should return correct number of cells",
+        desc: "case 2: should return correct number of null cells",
         icons: [
             [1, null],
             [2, null],
@@ -245,7 +245,7 @@ const fillCollumnTestData = [
         expectedNumber: 4
     },
     {
-        desc: "case 3: should return correct number of cells",
+        desc: "case 3: should return correct number of null cells",
         icons: [
             [1, null],
             [2, null],

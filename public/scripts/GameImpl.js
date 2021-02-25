@@ -1,6 +1,7 @@
 import BasicIcon from "./BasicIcon.js";
 import BasicIconGenerator from "./BasicIconGenerator.js";
 import Cell from "./Cell.js";
+import IO from "./IO.js";
 
 
 class GameImpl {
@@ -9,8 +10,9 @@ class GameImpl {
      * @param {number} width
      * @param {number} height
      * @param {BasicIconGenerator} generator
+     * @param {IO} io
      */
-    constructor(width, height, generator){
+    constructor(width, height, generator, io){
         this.Base_SCORE = 10;
 
         this._debug = false;
@@ -21,24 +23,8 @@ class GameImpl {
 
         this._score = 0;
         this.generator = generator;
+        this.io = io;
     }
-
-    /**
-     * @method
-     * @description Remove all runs from the grid
-     */
-    removeAllRuns(){
-        let run_cells = this.findRuns(true);
-        while(run_cells.length != 0){
-            for(let i = 0; i < this.grid.width; i++){
-                console.log("run_cells: ", run_cells);
-                this.collapseColumn(i);
-            }
-
-            run_cells = this.findRuns(true);
-        }
-    }
-
 
     set debug(debug){
         this._debug = debug;
@@ -98,6 +84,17 @@ class GameImpl {
     }
 
     /**
+      * @method
+      * @description Receives array of cells and modifies grid according to it.
+      * @param {Cell[]} cells
+      */
+    applyCells(cells) {
+        for(let i = 0; i < cells.length; i++) {
+            this.grid[cells[i].row][cells[i].col] = cells[i].icon;
+        }
+    }
+
+    /**
      * @method
      * @description Swap the icons contained in two cells
      * @param {Cell[]} cells cells array with two cells
@@ -148,7 +145,7 @@ class GameImpl {
             this.swapCells(cells);
 
             //if after the swap there are no runs, swap back and return false
-            if(!this.findRuns()){
+            if(this.findRuns().length <= 0){
                 this.swapCells(cells);
                 return false;
             }
@@ -225,11 +222,12 @@ class GameImpl {
 
                 this._score += 1;
                 let c = run_cells[i];
-                this.grid[c.row][c.col] = null;
-
+                // this.grid[c.row][c.col] = new BasicIcon(null);
+                // this.removeAndShiftDown(c.row, c.col);
             }
 
         }
+
 
         return run_cells;
     }
@@ -244,8 +242,9 @@ class GameImpl {
      * @param {number} col col of the element that should be removed
      */
     removeAndShiftDown(row, col){
-        this.grid[row][col] = null;
-        this.collapseColumn(col);
+        this.grid[row][col] = new BasicIcon(null);
+        let cells = this.collapseColumn(col);
+        this.applyCells(cells);
     }
 
     /**
@@ -264,15 +263,19 @@ class GameImpl {
         let non_nulls = [];
         let new_col = [];
 
-        for(let i = 0; i < this.height; i++){
-            if(!this.grid[i][col].type)
-                new_col.push(null);
+
+        for(let i = 0; i < this.grid.length; i++){
+            if(this.grid[i][col].type == null)
+                new_col.push(new Cell(i, col, new BasicIcon(null)));
             else
+                // non_nulls.push(new Cell(i, col, this.grid[i][col]));
                 non_nulls.push(new Cell(i, col, this.grid[i][col]));
         }
 
         for(let i = 0; i < non_nulls.length; i++)
             non_nulls[i].row = new_col.length + i;
+        for(let i = 0; i < new_col.length; i++)
+            new_col[i].row = i;
 
         return new_col.concat(non_nulls);
     }
@@ -281,7 +284,8 @@ class GameImpl {
      * @method
      * @description
      * Fills the null locations (if any) at the top of the given column in the current game grid.
-     * The returned list contains Cells representing new icons added to this column in their new locations.
+     * The returned list contains Cells representing new icons added to this column in
+     * their new locations.
      * The list is in no particular order.
      * @param {number} col column to be filled
      * @returns {Cell[]} list of new cells for icons added to the column
@@ -290,16 +294,40 @@ class GameImpl {
         let new_cells = [];
 
         for(let i = 0; i < this.height; i++){
-            if(this.getIcon(i,col)==-1){
+            if(this.getIcon(i,col).type == null){
                 let new_icon = this.generator.generate();
 
                 this.grid[i][col] = new_icon;
                 new_cells.push(new Cell(i, col, new_icon));
-
             }
         }
 
+        console.log(new_cells);
+
         return new_cells;
+    }
+
+    /**
+     * @method
+     * @description Remove all runs from the grid
+     * @returns {boolean} true if removed at least one run
+     */
+    removeAllRuns(){
+        let removed = false;
+        let run_cells = this.findRuns(true);
+        while(run_cells.length != 0){
+            console.log(this.toString());
+            removed = true;
+            for(let i = 0; i < run_cells.length; i++)
+                this.removeAndShiftDown(run_cells[i].row, run_cells[i].col);
+            // for(let i = 0; i < this.grid.width; i++){
+            //     this.collapseColumn(i);
+            // }
+
+            run_cells = this.findRuns(true);
+        }
+
+        return removed;
     }
 
     /**
@@ -326,6 +354,15 @@ class GameImpl {
         for(let i = 0; i < this.height; i++)
             cells.push(new Cell(i, col, this.grid[i][col]));
         return cells;
+    }
+
+    /**
+     * @method
+     * @description
+     * Draws board.
+     */
+    draw() {
+        this.io.draw(this.grid);
     }
 
     /**
@@ -386,7 +423,6 @@ class GameImpl {
         s = s.concat("}");
         return s;
     }
-
 }
 
 export default GameImpl;
