@@ -4,9 +4,10 @@ import BasicIconGenerator from "./BasicIconGenerator.js";
 import Cell from "./Cell.js";
 import IO from "./IO.js";
 
+const DEBUG = false;
 
-const WIDTH = 3;
-const HEIGHT = 3;
+const WIDTH = 10;
+const HEIGHT = 10;
 const ICONS = [0, 1, 2, 3, 4, 5];
 
 var game = null;
@@ -27,7 +28,10 @@ function getStartGame(width, height, generator, sketcher){
     while(game.findRuns().length > 0)
         game = new GameImpl(width, height, generator, sketcher);
 
-    console.log(game.toString());
+    if(DEBUG)
+        console.log(game.toString());
+
+    game.debug = DEBUG;
 
     return game;
 }
@@ -67,7 +71,7 @@ function makeMove(){
             for(let i=0; i < WIDTH; i++)
                 game.fillCollumn(i);
 
-            console.log(game.toString());
+            if(DEBUG) console.log(game.toString());
             game.draw();
             removed = game.removeAllRuns();
         }
@@ -76,7 +80,7 @@ function makeMove(){
     }
 
     game.draw();
-    console.log(game.toString());
+    if(DEBUG) console.log(game.toString());
     printScore(game.score);
 }
 

@@ -9,6 +9,7 @@
     --purple: #bd93f9;
     --pink: #ff79c6;
     --blue: #8be9fd;
+    --yellow: #f1fa8c;
 }
 
 html {
@@ -27,6 +28,12 @@ body {
     font-family: 'Source Code Pro', monospace;
 }
 
+.main-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: center;
+}
+
 input {
     background-color: var(--background_light);
     color: var(--foreground);
@@ -38,6 +45,7 @@ button {
     background-color: var(--background_light);
     color: var(--foreground);
     text-align: center;
+    font-weight: bold;
     border: none;
     margin-top: 20px;
     margin-bottom: 10px;
@@ -54,14 +62,19 @@ button:focus {
     margin: 0 auto;
 }
 
-#logs {
-    background-color: var(--background_light);
-    color: var(--foreground);
+#log {
+    color: var(--purple);
+    width: 300px;
 }
 
 #score {
-    background-color: var(--background_light);
-    color: var(--foreground);
+    color: var(--green);
+    font-weight: bold;
+}
+
+#logs {
+    color: var(--yellow);
+    font-weight: bold;
 }
 
 h1 {

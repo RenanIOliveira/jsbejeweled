@@ -302,7 +302,7 @@ class GameImpl {
             }
         }
 
-        console.log(new_cells);
+        if(this.debug) console.log(new_cells);
 
         return new_cells;
     }
@@ -316,7 +316,7 @@ class GameImpl {
         let removed = false;
         let run_cells = this.findRuns(true);
         while(run_cells.length != 0){
-            console.log(this.toString());
+            if(this.debug) console.log(this.toString());
             removed = true;
             for(let i = 0; i < run_cells.length; i++)
                 this.removeAndShiftDown(run_cells[i].row, run_cells[i].col);
