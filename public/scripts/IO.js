@@ -109,7 +109,7 @@ class IO {
     draw(grid) {
 
         this.clearCanvas();
-        
+
         this.grid = grid;
         for(let j = 0; j < grid[0].length; j++) {
             for(let i = 0; i < grid.length; i++) {
@@ -127,7 +127,7 @@ class IO {
     clearCanvas(){
          //clear canvas
        this.context.clearRect(0, 0, document.getElementById("bejeweled").width, document.getElementById("bejeweled").height);
-       
+
     }
 
     /**
@@ -138,7 +138,7 @@ class IO {
      * @param {number} y
      */
     highlightSquare(x, y) {
-        
+
         this.context.beginPath();
         let border = 10;
         this.context.rect(y + border / 2,
@@ -219,8 +219,6 @@ class IO {
         ({x, y} = this.posCanvasToGrid(x, y));
 
         this.pushSelected(x, y);
-
-        document.getElementById("selected").textContent = this.selectedToString();
 
         this.draw(this.grid);
     }
