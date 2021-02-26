@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <link rel="stylesheet" type="text/css" href="style.css">
+        <link href="favicon.png" rel="icon" type="image/x-icon" />
     </head>
 
     <body>
@@ -14,8 +15,19 @@
         <div class="main">
             <h1>Bejeweled</h1>
 
-            <canvas id="bejeweled" width="400" height="400"></canvas>
-            <script type="module" src="scripts/game.js"></script>
+            <div class="main-container">
+                <canvas id="bejeweled" width="400" height="400"></canvas>
+                <script type="module" src="scripts/GameLoop.js"></script>
+
+                <div class="side-panel">
+                    <div id="log">Score: <span id="score"></span></div>
+                    <div id="log">Logs: <span id="logs"></span></div>
+                    <div style=" margin-left: auto; margin-right: auto; display: block; text-align: center;">
+                        <button id="Move">Move</button>
+                    </div>
+                </div>
+            </div>
+
 
         </div>
     </body>

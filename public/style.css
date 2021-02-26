@@ -9,6 +9,7 @@
     --purple: #bd93f9;
     --pink: #ff79c6;
     --blue: #8be9fd;
+    --yellow: #f1fa8c;
 }
 
 html {
@@ -27,9 +28,54 @@ body {
     font-family: 'Source Code Pro', monospace;
 }
 
+.main-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: center;
+}
+
+input {
+    background-color: var(--background_light);
+    color: var(--foreground);
+    text-align: center;
+    border: none;
+}
+
+button {
+    background-color: var(--background_light);
+    color: var(--foreground);
+    text-align: center;
+    font-weight: bold;
+    border: none;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 10px 20px 10px 20px;
+}
+
+button:focus {
+    background-color: var(--green);
+    color: var(--background);
+}
+
 .main {
     width: 70%;
     margin: 0 auto;
+}
+
+#log {
+    color: var(--purple);
+    font-weight: bold;
+    width: 300px;
+}
+
+#score {
+    color: var(--green);
+    font-weight: bold;
+}
+
+#logs {
+    color: var(--yellow);
+    font-weight: bold;
 }
 
 h1 {
@@ -116,7 +162,7 @@ canvas {
 }
 
 #bejeweled {
-    border-radius: 10px;
+    /* border-radius: 10px; */
     margin-left: auto;
     margin-right: auto;
     display: block;
