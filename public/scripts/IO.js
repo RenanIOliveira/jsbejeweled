@@ -48,7 +48,7 @@ class IO {
      * Transforms coordinates (x, y) on page to position in canvas.
      * @param {number} x
      * @param {number} y
-     * @returns {x: number, y: number}
+     * @returns {{x: number, y: number}}
      */
     posPageToCanvas(x, y) {
         return {x: y - this.canvas.offsetTop,
@@ -61,7 +61,7 @@ class IO {
      * Transforms coordinates (x, y) on canvas to position in game grid.
      * @param {number} x
      * @param {number} y
-     * @returns {x: number, y: number}
+     * @returns {{x: number, y: number}}
      */
     posCanvasToGrid(x, y) {
         return {x: Math.floor(x / this.square_size),
@@ -189,7 +189,7 @@ class IO {
      * @method
      * @description
      * Removes and returns first element of this.selected.
-     * @returns {x: number, y: number}
+     * @returns {{x: number, y: number}}
      */
     popSelected() {
         let {x, y} = this.selected[0];
