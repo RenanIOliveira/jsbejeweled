@@ -62,7 +62,7 @@ function makeMove(){
         
         let cur_score = game.score;
         let removed = game.removeAllRuns();
-        
+
         while(removed) {
             for(let i=0; i < WIDTH; i++)
                 game.fillCollumn(i);
@@ -72,7 +72,6 @@ function makeMove(){
             removed = game.removeAllRuns();
         }
         let move_score = game.score - cur_score;
-        console.log(game.score)
         printLog(`${move_score.toString()} points move!`);
     } else {
         printLog("Invalid Move");
