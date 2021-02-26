@@ -1,28 +1,5 @@
 # jsbejeweled
-Bejeweled in an HTLM canvas.
+This Fork is just the live version of the project in:
+https://github.com/NasreddinHodja/jsbejeweled
 
-The Live App Can Be Accessed At: {site here}
-
-## Integrantes
-Renan Ignácio<br>
-Tomás Bizet<br>
-
-# Scripts
-
-To Run the App in development Mode:<br>
-```bash
-npm start
-```
-<br>
-
-To Run The Tests:<br>
-```bash
-npm run doc
-```
-<br>
-
-To Auto Generate the Docs:<br>
-```bash
-npm run doc
-```
 
